@@ -20,7 +20,7 @@ public class Member {
 	private String password;
 	private String name;
 	private String phone;
-	private RoleType roleType;
+	private Role role;
 	private boolean isDeleted;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
