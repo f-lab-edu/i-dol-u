@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/idolu?serverTimezone=UTC&characterEncoding=utf8
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
+mybatis:
+  type-aliases-package: com.flab.idolu.domain.*.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    use-generated-keys: true
+  mapper-locations: mybatis/mapper/**/*.xml
