@@ -1,5 +1,7 @@
 package com.flab.idolu.domain.member.repository;
 
+import java.util.Optional;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -11,5 +13,5 @@ public interface MemberRepository {
 
 	Long insertMember(Member member);
 
-	Member findByEmail(String email);
+	Optional<Member> findByEmail(String email);
 }
