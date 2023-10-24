@@ -2,10 +2,12 @@ package com.flab.idolu.domain.member.service;
 
 import java.util.regex.Pattern;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import com.flab.idolu.domain.member.dto.request.SignUpMemberDto;
+import com.flab.idolu.domain.member.entity.Member;
 import com.flab.idolu.domain.member.exception.EmailDuplicateException;
 import com.flab.idolu.domain.member.repository.MemberRepository;
 
@@ -16,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class MemberService {
 
 	private final MemberRepository memberRepository;
+	private final PasswordEncoder passwordEncoder;
 
 	/**
 	 * 회원가입 메서드
@@ -28,7 +31,9 @@ public class MemberService {
 			throw new EmailDuplicateException("이미 가입한 이메일입니다. 입력된 이메일: %s".formatted(signUpMemberDto.getEmail()));
 		}
 
-		return memberRepository.insertMember(signUpMemberDto.toEntity());
+		Member member = signUpMemberDto.toEntity();
+		member.setBcryptPassword(passwordEncoder.encode(member.getPassword()));
+		return memberRepository.insertMember(member);
 	}
 
 	private boolean isDuplicatedMember(SignUpMemberDto signUpMemberDto) {

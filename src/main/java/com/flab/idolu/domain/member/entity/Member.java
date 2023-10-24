@@ -24,4 +24,8 @@ public class Member {
 	private boolean isDeleted;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
+
+	public void setBcryptPassword(String bcryptPassword) {
+		this.password = bcryptPassword;
+	}
 }

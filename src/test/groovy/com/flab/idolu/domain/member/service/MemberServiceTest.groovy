@@ -2,6 +2,7 @@ package com.flab.idolu.domain.member.service
 
 import com.flab.idolu.domain.member.exception.EmailDuplicateException
 import com.flab.idolu.domain.member.repository.MemberRepository
+import org.springframework.security.crypto.password.PasswordEncoder
 import spock.lang.Specification
 
 import static com.flab.idolu.domain.fixture.MemberFixture.*
@@ -10,9 +11,10 @@ class MemberServiceTest extends Specification {
 
     MemberService memberService
     MemberRepository memberRepository = Mock()
+    PasswordEncoder passwordEncoder = Mock()
 
     def setup() {
-        memberService = new MemberService(memberRepository)
+        memberService = new MemberService(memberRepository, passwordEncoder)
     }
 
     def "이미 가입한 회원 실패 테스트"() {
