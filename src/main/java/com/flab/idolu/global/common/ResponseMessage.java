@@ -1,5 +1,8 @@
 package com.flab.idolu.global.common;
 
+import lombok.Getter;
+
+@Getter
 public class ResponseMessage {
 
 	private final Status status;

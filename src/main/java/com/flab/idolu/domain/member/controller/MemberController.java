@@ -1,7 +1,6 @@
 package com.flab.idolu.domain.member.controller;
 
 import static com.flab.idolu.global.common.ResponseMessage.Status.*;
-import static org.springframework.http.HttpStatus.*;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,8 +24,7 @@ public class MemberController {
 	@PostMapping("/signup")
 	public ResponseEntity<ResponseMessage> signup(@RequestBody SignUpMemberDto signUpMemberDto) {
 		memberService.signUp(signUpMemberDto);
-		return ResponseEntity.status(OK)
-			.body(new ResponseMessage.Builder(SUCCESS)
-				.build());
+		return ResponseEntity.ok(new ResponseMessage.Builder(SUCCESS)
+			.build());
 	}
 }
