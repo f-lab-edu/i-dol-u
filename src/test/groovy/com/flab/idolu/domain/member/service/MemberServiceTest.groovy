@@ -43,8 +43,8 @@ class MemberServiceTest extends Specification {
         BLANK_NAME_MEMBER             | "이름을 입력해야 합니다."
         BLANK_PHONE_MEMBER            | "휴대전화를 입력해야 합니다."
         BLANK_ROLE_MEMBER             | "역할을 입력해야 합니다."
-        INVALID_EMAIL_MEMBER          | "이메일 양식에 맞춰야 합니다. 현재 이메일: testUser"
-        INVALID_PASSWORD_MEMBER       | "비밀번호는 영문과 숫자 조합으로 8 ~ 16자리까지 가능합니다. 현재 비밀번회: test"
-        NOT_MATCHED_PASSWORD_MEMBER   | "비밀번호와 비밀번호 확인이 일치해야 합니다. 비밀번호: testPassword1, 비밀번호 확인: testPassword"
+        INVALID_EMAIL_MEMBER          | "이메일 양식에 맞춰야 합니다."
+        INVALID_PASSWORD_MEMBER       | "비밀번호는 영문과 숫자 조합으로 8 ~ 16자리까지 가능합니다."
+        NOT_MATCHED_PASSWORD_MEMBER   | "비밀번호와 비밀번호 확인이 일치해야 합니다."
     }
 }

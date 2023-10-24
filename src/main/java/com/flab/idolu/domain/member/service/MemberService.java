@@ -45,14 +45,12 @@ public class MemberService {
 
 		Assert.isTrue(
 			Pattern.matches("^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$",
-				signUpMemberDto.getEmail()), "이메일 양식에 맞춰야 합니다. 현재 이메일: %s".formatted(signUpMemberDto.getEmail()));
+				signUpMemberDto.getEmail()), "이메일 양식에 맞춰야 합니다.");
 		Assert.isTrue(
 			Pattern.matches("^(?=.*\\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,16}", signUpMemberDto.getPassword()),
-			"비밀번호는 영문과 숫자 조합으로 8 ~ 16자리까지 가능합니다. 현재 비밀번회: %s".formatted(signUpMemberDto.getPassword()));
+			"비밀번호는 영문과 숫자 조합으로 8 ~ 16자리까지 가능합니다.");
 		Assert.isTrue(
 			signUpMemberDto.getPassword().equals(signUpMemberDto.getPasswordConfirm()),
-			"비밀번호와 비밀번호 확인이 일치해야 합니다. 비밀번호: %s, 비밀번호 확인: %s".formatted(
-				signUpMemberDto.getPassword(),
-				signUpMemberDto.getPasswordConfirm()));
+			"비밀번호와 비밀번호 확인이 일치해야 합니다.");
 	}
 }
