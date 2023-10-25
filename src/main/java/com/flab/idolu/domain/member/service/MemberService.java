@@ -4,6 +4,7 @@ import java.util.regex.Pattern;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import com.flab.idolu.domain.member.dto.request.SignUpMemberDto;
@@ -25,6 +26,7 @@ public class MemberService {
 	 * @param signUpMemberDto 사용자 입력 정보
 	 * @return
 	 */
+	@Transactional
 	public Long signUp(SignUpMemberDto signUpMemberDto) {
 		validateMemberDto(signUpMemberDto);
 		if (isDuplicatedMember(signUpMemberDto)) {
