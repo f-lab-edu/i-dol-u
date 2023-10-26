@@ -19,7 +19,8 @@ public class ExceptionAdvice {
 	@ExceptionHandler(IllegalArgumentException.class)
 	protected ResponseEntity<ResponseMessage> illegalArgumentException(IllegalArgumentException exception) {
 		return ResponseEntity.status(BAD_REQUEST)
-			.body(new ResponseMessage.Builder(FAIL)
+			.body(ResponseMessage.builder()
+				.status(FAIL)
 				.message(exception.getMessage())
 				.build());
 	}
@@ -27,7 +28,8 @@ public class ExceptionAdvice {
 	@ExceptionHandler(EmailDuplicateException.class)
 	protected ResponseEntity<ResponseMessage> emailDuplicationException(EmailDuplicateException exception) {
 		return ResponseEntity.status(BAD_REQUEST)
-			.body(new ResponseMessage.Builder(FAIL)
+			.body(ResponseMessage.builder()
+				.status(FAIL)
 				.message("이미 가입한 이메일입니다.")
 				.build());
 	}
