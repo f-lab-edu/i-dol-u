@@ -109,4 +109,17 @@ class MemberServiceTest extends Specification {
         INVALID_EMAIL_LOGIN_MEMBER    | "이메일 양식에 맞춰야 합니다."
         INVALID_PASSWORD_LOGIN_MEMBER | "비밀번호는 영문과 숫자 조합으로 8 ~ 16자리까지 가능합니다."
     }
+
+    def "로그아웃 성공 테스트"() {
+        given:
+        memberRepository.findByEmail(_) >> Optional.ofNullable(DEFAULT_MEMBER)
+        passwordEncoder.matches(_, _) >> true
+        memberService.login(DEFAULT_LOGIN_MEMBER)
+
+        when:
+        memberService.logout()
+
+        then:
+        SessionUtil.getLoginMemberId(httpSession) == null
+    }
 }
