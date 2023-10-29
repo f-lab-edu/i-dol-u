@@ -9,11 +9,11 @@ public class SessionUtil {
 	private SessionUtil() {
 	}
 
-	public static void setLoginMemberId(HttpSession session, String id) {
+	public static void setLoginMemberId(HttpSession session, Long id) {
 		session.setAttribute(LOGIN_MEMBER_ID, id);
 	}
 
-	public static String getLoginMemberId(HttpSession session) {
-		return (String)session.getAttribute(LOGIN_MEMBER_ID);
+	public static Long getLoginMemberId(HttpSession session) {
+		return (Long)session.getAttribute(LOGIN_MEMBER_ID);
 	}
 }

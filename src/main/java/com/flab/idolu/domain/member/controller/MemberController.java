@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.flab.idolu.domain.member.dto.request.LoginMemberDto;
 import com.flab.idolu.domain.member.dto.request.SignUpMemberDto;
 import com.flab.idolu.domain.member.service.MemberService;
 import com.flab.idolu.global.common.ResponseMessage;
@@ -24,6 +25,15 @@ public class MemberController {
 	@PostMapping("/signup")
 	public ResponseEntity<ResponseMessage> signup(@RequestBody SignUpMemberDto signUpMemberDto) {
 		memberService.signUp(signUpMemberDto);
+
+		return ResponseEntity.ok(ResponseMessage.builder()
+			.status(SUCCESS)
+			.build());
+	}
+
+	@PostMapping("/login")
+	public ResponseEntity<ResponseMessage> login(@RequestBody LoginMemberDto loginMemberDto) {
+		memberService.login(loginMemberDto);
 
 		return ResponseEntity.ok(ResponseMessage.builder()
 			.status(SUCCESS)
