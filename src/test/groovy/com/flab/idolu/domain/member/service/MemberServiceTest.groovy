@@ -17,6 +17,15 @@ class MemberServiceTest extends Specification {
         memberService = new MemberService(memberRepository, passwordEncoder)
     }
 
+    def "회원가입 성공 테스트"() {
+        given:
+        memberRepository.findByEmail(_) >> Optional.empty()
+        memberRepository.insertMember(_) >> 1L
+
+        expect:
+        memberService.signUp(DEFAULT_SIGNUP_MEMBER) == 1L
+    }
+
     def "이미 가입한 회원 실패 테스트"() {
         given:
         memberRepository.findByEmail(DEFAULT_SIGNUP_MEMBER.getEmail()) >> Optional.ofNullable(DEFAULT_SIGNUP_MEMBER)
