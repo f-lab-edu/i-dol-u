@@ -61,6 +61,10 @@ public class MemberService {
 		SessionUtil.setLoginMemberId(httpSession, member.getId());
 	}
 
+	public void logout() {
+		SessionUtil.removeLoginMemberId(httpSession);
+	}
+
 	private void validateLoginMemberDto(LoginMemberDto loginMemberDto) {
 		Assert.hasText(loginMemberDto.getEmail(), "이메일을 입력해야 합니다.");
 		Assert.hasText(loginMemberDto.getPassword(), "비밀번호를 입력해야 합니다.");

@@ -16,4 +16,8 @@ public class SessionUtil {
 	public static Long getLoginMemberId(HttpSession session) {
 		return (Long)session.getAttribute(LOGIN_MEMBER_ID);
 	}
+
+	public static void removeLoginMemberId(HttpSession session) {
+		session.removeAttribute(LOGIN_MEMBER_ID);
+	}
 }
