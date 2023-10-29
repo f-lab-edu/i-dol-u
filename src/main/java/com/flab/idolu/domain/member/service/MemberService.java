@@ -64,6 +64,13 @@ public class MemberService {
 	private void validateLoginMemberDto(LoginMemberDto loginMemberDto) {
 		Assert.hasText(loginMemberDto.getEmail(), "이메일을 입력해야 합니다.");
 		Assert.hasText(loginMemberDto.getPassword(), "비밀번호를 입력해야 합니다.");
+
+		Assert.isTrue(
+			Pattern.matches("^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$",
+				loginMemberDto.getEmail()), "이메일 양식에 맞춰야 합니다.");
+		Assert.isTrue(
+			Pattern.matches("^(?=.*\\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,16}", loginMemberDto.getPassword()),
+			"비밀번호는 영문과 숫자 조합으로 8 ~ 16자리까지 가능합니다.");
 	}
 
 	private boolean isDuplicatedMember(SignUpMemberDto signUpMemberDto) {
