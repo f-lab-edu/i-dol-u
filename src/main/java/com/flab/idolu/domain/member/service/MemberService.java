@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import com.flab.idolu.domain.member.dto.request.LoginMemberDto;
+import com.flab.idolu.domain.member.dto.request.ModifyMemberDto;
 import com.flab.idolu.domain.member.dto.request.SignUpMemberDto;
 import com.flab.idolu.domain.member.dto.response.MyInfoMemberDto;
 import com.flab.idolu.domain.member.entity.Member;
@@ -72,6 +73,18 @@ public class MemberService {
 			.orElseThrow(() -> new MemberNotFoundException("존재하지 않는 회원입니다."));
 
 		return MyInfoMemberDto.from(member);
+	}
+
+	@Transactional
+	public void modifyMemberInfo(ModifyMemberDto modifyMemberDto, Long memberId) {
+		validateModifyMemberDto(modifyMemberDto);
+
+		memberRepository.updateMember(modifyMemberDto.toEntity(memberId));
+	}
+
+	private void validateModifyMemberDto(ModifyMemberDto modifyMemberDto) {
+		Assert.hasText(modifyMemberDto.getName(), "이름을 입력해야 합니다.");
+		Assert.hasText(modifyMemberDto.getPhone(), "휴대전화를 입력해야 합니다.");
 	}
 
 	private void validateLoginMemberDto(LoginMemberDto loginMemberDto) {

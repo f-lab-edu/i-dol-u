@@ -34,4 +34,11 @@
         FROM member
         WHERE id = #{id}
     </select>
+
+    <update id="updateMember" parameterType="Member">
+        UPDATE member
+        SET name  = #{name},
+            phone = #{phone}
+        WHERE id = #{id}
+    </update>
 </mapper>
