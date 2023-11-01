@@ -1,6 +1,7 @@
 package com.flab.idolu.domain.fixture;
 
 import com.flab.idolu.domain.member.dto.request.LoginMemberDto;
+import com.flab.idolu.domain.member.dto.request.ModifyMemberDto;
 import com.flab.idolu.domain.member.dto.request.SignUpMemberDto;
 import com.flab.idolu.domain.member.entity.Member;
 import com.flab.idolu.domain.member.entity.Role;
@@ -129,5 +130,20 @@ public class MemberFixture {
 	public static final LoginMemberDto BLANK_PASSWORD_LOGIN_MEMBER = LoginMemberDto.builder()
 		.email("testUser@email.com")
 		.password("")
+		.build();
+
+	public static final ModifyMemberDto DEFAULT_MODIFY_MEMBER = ModifyMemberDto.builder()
+		.name("testUser123")
+		.phone("01011111111")
+		.build();
+
+	public static final ModifyMemberDto BLANK_NAME_MODIFY_MEMBER = ModifyMemberDto.builder()
+		.name("")
+		.phone("01011111111")
+		.build();
+
+	public static final ModifyMemberDto BLANK_PHONE_MODIFY_MEMBER = ModifyMemberDto.builder()
+		.name("testUser123")
+		.phone("")
 		.build();
 }
