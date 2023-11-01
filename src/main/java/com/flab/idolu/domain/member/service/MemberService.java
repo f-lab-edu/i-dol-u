@@ -9,6 +9,7 @@ import org.springframework.util.Assert;
 
 import com.flab.idolu.domain.member.dto.request.LoginMemberDto;
 import com.flab.idolu.domain.member.dto.request.SignUpMemberDto;
+import com.flab.idolu.domain.member.dto.response.MyInfoMemberDto;
 import com.flab.idolu.domain.member.entity.Member;
 import com.flab.idolu.domain.member.exception.EmailDuplicateException;
 import com.flab.idolu.domain.member.exception.MemberNotFoundException;
@@ -63,6 +64,14 @@ public class MemberService {
 
 	public void logout() {
 		SessionUtil.removeLoginMemberId(httpSession);
+	}
+
+	@Transactional(readOnly = true)
+	public MyInfoMemberDto getMemberInfo(Long memberId) {
+		Member member = memberRepository.findById(memberId)
+			.orElseThrow(() -> new MemberNotFoundException("존재하지 않는 회원입니다."));
+
+		return MyInfoMemberDto.from(member);
 	}
 
 	private void validateLoginMemberDto(LoginMemberDto loginMemberDto) {

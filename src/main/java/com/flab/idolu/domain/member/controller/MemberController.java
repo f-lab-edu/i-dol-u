@@ -13,7 +13,9 @@ import com.flab.idolu.domain.member.dto.request.LoginMemberDto;
 import com.flab.idolu.domain.member.dto.request.SignUpMemberDto;
 import com.flab.idolu.domain.member.service.MemberService;
 import com.flab.idolu.global.common.ResponseMessage;
+import com.flab.idolu.global.util.SessionUtil;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -47,6 +49,16 @@ public class MemberController {
 
 		return ResponseEntity.ok(ResponseMessage.builder()
 			.status(SUCCESS)
+			.build());
+	}
+
+	@GetMapping("/myinfo")
+	public ResponseEntity<ResponseMessage> findMyInfo(HttpSession session) {
+		Long memberId = SessionUtil.getLoginMemberId(session);
+
+		return ResponseEntity.ok(ResponseMessage.builder()
+			.status(SUCCESS)
+			.result(memberService.getMemberInfo(memberId))
 			.build());
 	}
 }

@@ -20,4 +20,18 @@
         FROM member
         WHERE email = #{email}
     </select>
+
+    <select id="findById" resultType="Member">
+        SELECT id,
+               email,
+               password,
+               name,
+               phone,
+               role,
+               is_deleted,
+               created_at,
+               updated_at
+        FROM member
+        WHERE id = #{id}
+    </select>
 </mapper>
