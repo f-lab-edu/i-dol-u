@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.flab.idolu.domain.member.exception.EmailDuplicateException;
 import com.flab.idolu.domain.member.exception.MemberNotFoundException;
 import com.flab.idolu.domain.member.exception.PasswordNotMatchException;
+import com.flab.idolu.domain.member.exception.UnauthorizedMemberException;
 import com.flab.idolu.global.common.ResponseMessage;
 
 import lombok.extern.slf4j.Slf4j;
@@ -47,6 +48,14 @@ public class ExceptionAdvice {
 	@ExceptionHandler(PasswordNotMatchException.class)
 	protected ResponseEntity<ResponseMessage> memberNotFoundException(PasswordNotMatchException exception) {
 		return ResponseEntity.badRequest()
+			.body(ResponseMessage.builder()
+				.message(exception.getMessage())
+				.build());
+	}
+
+	@ExceptionHandler(UnauthorizedMemberException.class)
+	protected ResponseEntity<ResponseMessage> unauthorizedMemberException(UnauthorizedMemberException exception) {
+		return ResponseEntity.status(UNAUTHORIZED)
 			.body(ResponseMessage.builder()
 				.message(exception.getMessage())
 				.build());
