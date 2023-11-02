@@ -37,8 +37,9 @@
 
     <update id="updateMember" parameterType="Member">
         UPDATE member
-        SET name  = #{name},
-            phone = #{phone}
+        SET name       = #{name},
+            phone      = #{phone},
+            updated_at = now()
         WHERE id = #{id}
     </update>
 </mapper>
