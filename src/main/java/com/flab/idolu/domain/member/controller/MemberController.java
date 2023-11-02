@@ -14,6 +14,7 @@ import com.flab.idolu.domain.member.dto.request.LoginMemberDto;
 import com.flab.idolu.domain.member.dto.request.ModifyMemberDto;
 import com.flab.idolu.domain.member.dto.request.SignUpMemberDto;
 import com.flab.idolu.domain.member.service.MemberService;
+import com.flab.idolu.global.annotation.MemberLoginCheck;
 import com.flab.idolu.global.common.ResponseMessage;
 import com.flab.idolu.global.util.SessionUtil;
 
@@ -54,6 +55,7 @@ public class MemberController {
 			.build());
 	}
 
+	@MemberLoginCheck
 	@GetMapping("/myInfo")
 	public ResponseEntity<ResponseMessage> findMyInfo(HttpSession session) {
 		Long memberId = SessionUtil.getLoginMemberId(session);
@@ -64,6 +66,7 @@ public class MemberController {
 			.build());
 	}
 
+	@MemberLoginCheck
 	@PatchMapping("/myInfo/edit")
 	public ResponseEntity<ResponseMessage> modifyMyInfo(HttpSession session,
 		@RequestBody ModifyMemberDto modifyMemberDto) {
