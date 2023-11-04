@@ -178,4 +178,12 @@ class MemberServiceTest extends Specification {
         BLANK_NAME_MODIFY_MEMBER  | "이름을 입력해야 합니다."
         BLANK_PHONE_MODIFY_MEMBER | "휴대전화를 입력해야 합니다."
     }
+
+    def "회원 탈퇴 성공 테스트"() {
+        when:
+        memberService.withdrawMember(1L)
+
+        then:
+        1 * memberRepository.updateIsDeleted(1L)
+    }
 }
