@@ -42,4 +42,10 @@
             updated_at = now()
         WHERE id = #{id}
     </update>
+
+    <update id="updateIsDeleted">
+        UPDATE member
+        SET is_deleted = true
+        WHERE id = #{id}
+    </update>
 </mapper>

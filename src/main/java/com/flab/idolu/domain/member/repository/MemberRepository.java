@@ -18,4 +18,6 @@ public interface MemberRepository {
 	Optional<Member> findById(Long memberId);
 
 	void updateMember(Member member);
+
+	void updateIsDeleted(Long memberId);
 }
