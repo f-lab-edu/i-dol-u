@@ -82,6 +82,15 @@ public class MemberService {
 		memberRepository.updateMember(modifyMemberDto.toEntity(memberId));
 	}
 
+	/**
+	 * 회원 탈퇴
+	 * @param memberId
+	 */
+	@Transactional
+	public void withdrawMember(Long memberId) {
+		memberRepository.updateIsDeleted(memberId);
+	}
+
 	private void validateModifyMemberDto(ModifyMemberDto modifyMemberDto) {
 		Assert.hasText(modifyMemberDto.getName(), "이름을 입력해야 합니다.");
 		Assert.hasText(modifyMemberDto.getPhone(), "휴대전화를 입력해야 합니다.");
