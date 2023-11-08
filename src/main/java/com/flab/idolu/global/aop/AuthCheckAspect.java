@@ -16,10 +16,6 @@ import jakarta.servlet.http.HttpSession;
 @Component
 public class AuthCheckAspect {
 
-	/**
-	 * 로그인 상태 확인
-	 * @param joinPoint
-	 */
 	@Before("@annotation(com.flab.idolu.global.annotation.MemberLoginCheck)")
 	public void memberLoginCheck(JoinPoint joinPoint) {
 
