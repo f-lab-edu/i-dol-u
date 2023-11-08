@@ -78,4 +78,15 @@ public class MemberController {
 			.status(SUCCESS)
 			.build());
 	}
+
+	@MemberLoginCheck
+	@PatchMapping("/withdraw")
+	public ResponseEntity<ResponseMessage> withdrawMember(HttpSession session) {
+		Long memberId = SessionUtil.getLoginMemberId(session);
+		memberService.withdrawMember(memberId);
+
+		return ResponseEntity.ok(ResponseMessage.builder()
+			.status(SUCCESS)
+			.build());
+	}
 }

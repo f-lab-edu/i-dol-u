@@ -29,11 +29,6 @@ public class MemberService {
 	private final PasswordEncoder passwordEncoder;
 	private final HttpSession httpSession;
 
-	/**
-	 * 회원가입 메서드
-	 * @param signUpMemberDto 사용자 입력 정보
-	 * @return
-	 */
 	@Transactional
 	public Long signUp(SignUpMemberDto signUpMemberDto) {
 		validateMemberDto(signUpMemberDto);
@@ -46,10 +41,6 @@ public class MemberService {
 		return memberRepository.insertMember(member);
 	}
 
-	/**
-	 * 로그인 메서드
-	 * @param loginMemberDto 이메일 및 비밀번호 정보
-	 */
 	@Transactional(readOnly = true)
 	public void login(LoginMemberDto loginMemberDto) {
 		validateLoginMemberDto(loginMemberDto);
@@ -80,6 +71,11 @@ public class MemberService {
 		validateModifyMemberDto(modifyMemberDto);
 
 		memberRepository.updateMember(modifyMemberDto.toEntity(memberId));
+	}
+
+	@Transactional
+	public void withdrawMember(Long memberId) {
+		memberRepository.updateIsDeleted(memberId);
 	}
 
 	private void validateModifyMemberDto(ModifyMemberDto modifyMemberDto) {
