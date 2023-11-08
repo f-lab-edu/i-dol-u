@@ -20,4 +20,32 @@
         FROM member
         WHERE email = #{email}
     </select>
+
+    <select id="findById" resultType="Member">
+        SELECT id,
+               email,
+               password,
+               name,
+               phone,
+               role,
+               is_deleted,
+               created_at,
+               updated_at
+        FROM member
+        WHERE id = #{id}
+    </select>
+
+    <update id="updateMember" parameterType="Member">
+        UPDATE member
+        SET name       = #{name},
+            phone      = #{phone},
+            updated_at = now()
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateIsDeleted">
+        UPDATE member
+        SET is_deleted = true
+        WHERE id = #{id}
+    </update>
 </mapper>

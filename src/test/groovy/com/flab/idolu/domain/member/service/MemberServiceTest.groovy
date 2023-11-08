@@ -131,4 +131,59 @@ class MemberServiceTest extends Specification {
         then:
         SessionUtil.getLoginMemberId(httpSession) == null
     }
+
+    def "회원정보 조회 테스트"() {
+        given:
+        memberRepository.findById(_) >> Optional.ofNullable(DEFAULT_MEMBER)
+
+        when:
+        def member = memberService.getMemberInfo(1L)
+
+        then:
+        member.email == "testUser@email.com"
+        member.name == "testUser1"
+        member.phone == "01011111111"
+    }
+
+    def "회원정보 실패 테스트"() {
+        given:
+        memberRepository.findById(_) >> Optional.empty()
+
+        when:
+        memberService.getMemberInfo(1L)
+
+        then:
+        def exception = thrown(MemberNotFoundException)
+        exception.message == "존재하지 않는 회원입니다."
+    }
+
+    def "회원정보 수정 성공 테스트"() {
+        when:
+        memberService.modifyMemberInfo(DEFAULT_MODIFY_MEMBER, 1L)
+
+        then:
+        1 * memberRepository.updateMember(DEFAULT_MEMBER)
+    }
+
+    def "회원정보 수정 실패 테스트"() {
+        when:
+        memberService.modifyMemberInfo(member, 1L)
+
+        then:
+        def exception = thrown(IllegalArgumentException)
+        exception.message == exceptionMessage
+
+        where:
+        member                    | exceptionMessage
+        BLANK_NAME_MODIFY_MEMBER  | "이름을 입력해야 합니다."
+        BLANK_PHONE_MODIFY_MEMBER | "휴대전화를 입력해야 합니다."
+    }
+
+    def "회원 탈퇴 성공 테스트"() {
+        when:
+        memberService.withdrawMember(1L)
+
+        then:
+        1 * memberRepository.updateIsDeleted(1L)
+    }
 }

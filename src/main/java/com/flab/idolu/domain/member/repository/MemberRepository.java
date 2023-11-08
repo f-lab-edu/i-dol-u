@@ -14,4 +14,10 @@ public interface MemberRepository {
 	Long insertMember(Member member);
 
 	Optional<Member> findByEmail(String email);
+
+	Optional<Member> findById(Long memberId);
+
+	void updateMember(Member member);
+
+	void updateIsDeleted(Long memberId);
 }
