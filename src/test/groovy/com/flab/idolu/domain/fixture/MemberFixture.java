@@ -98,6 +98,15 @@ public class MemberFixture {
 		.role("USER")
 		.build();
 
+	public static final SignUpMemberDto INVALID_PHONE_MEMBER = SignUpMemberDto.builder()
+		.email("testUser@email.com")
+		.password("testPassword1")
+		.passwordConfirm("testPassword1")
+		.name("testUser1")
+		.phone("1011111111")
+		.role("USER")
+		.build();
+
 	public static final SignUpMemberDto NOT_MATCHED_PASSWORD_MEMBER = SignUpMemberDto.builder()
 		.email("testUser@email.com")
 		.password("testPassword1")
@@ -145,5 +154,10 @@ public class MemberFixture {
 	public static final ModifyMemberDto BLANK_PHONE_MODIFY_MEMBER = ModifyMemberDto.builder()
 		.name("testUser123")
 		.phone("")
+		.build();
+
+	public static final ModifyMemberDto INVALID_PHONE_MODIFY_MEMBER = ModifyMemberDto.builder()
+		.name("testUser123")
+		.phone("1011111111")
 		.build();
 }
