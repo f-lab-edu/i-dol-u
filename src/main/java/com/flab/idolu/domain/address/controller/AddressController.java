@@ -1,9 +1,9 @@
 package com.flab.idolu.domain.address.controller;
 
 import static com.flab.idolu.global.common.ResponseMessage.Status.*;
-import static com.flab.idolu.global.common.ResponseMessage.*;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,8 +34,19 @@ public class AddressController {
 		Long memberId = SessionUtil.getLoginMemberId(httpSession);
 		addressService.registerAddress(registerAddressDto, memberId);
 
-		return ResponseEntity.ok(builder()
+		return ResponseEntity.ok(ResponseMessage.builder()
 			.status(SUCCESS)
+			.build());
+	}
+
+	@GetMapping
+	@MemberLoginCheck
+	public ResponseEntity<ResponseMessage> getMyAddress(HttpSession httpSession) {
+		Long memberId = SessionUtil.getLoginMemberId(httpSession);
+
+		return ResponseEntity.ok(ResponseMessage.builder()
+			.status(SUCCESS)
+			.result(addressService.findByMemberId(memberId))
 			.build());
 	}
 }

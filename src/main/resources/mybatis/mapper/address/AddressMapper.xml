@@ -7,4 +7,16 @@
                              updated_at)
         VALUES (#{memberId}, #{recipient}, #{phone}, #{zipCode}, #{address1}, #{address2}, false, NOW(), NOW());
     </insert>
+
+    <select id="findByMemberId" resultType="AddressInfoDto">
+        SELECT id,
+               recipient,
+               phone,
+               zip_code,
+               address_1,
+               address_2
+        FROM address
+        WHERE member_id = 44
+          AND is_deleted = false;
+    </select>
 </mapper>
