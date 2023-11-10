@@ -44,4 +44,11 @@
         WHERE id = #{id}
           AND member_id = #{address.memberId}
     </update>
+
+    <update id="updateIsDeletedByIdAndMemberId">
+        UPDATE address
+        SET is_deleted = true
+        WHERE id = #{id}
+          AND member_id = #{memberId}
+    </update>
 </mapper>

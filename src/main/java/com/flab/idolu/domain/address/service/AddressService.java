@@ -46,6 +46,11 @@ public class AddressService {
 		addressRepository.updateAddressByIdAndMemberId(requestAddressDto.toEntity(memberId), id);
 	}
 
+	@Transactional
+	public void updateIsDeletedByIdAndMemberId(Long id, Long memberId) {
+		addressRepository.updateIsDeletedByIdAndMemberId(id, memberId);
+	}
+
 	private void validateRegisterAddressDto(RequestAddressDto requestAddressDto) {
 		Assert.hasText(requestAddressDto.getRecipient(), "수령자를 입력해야 합니다.");
 		Assert.hasText(requestAddressDto.getPhone(), "휴대전화를 입력해야 합니다.");

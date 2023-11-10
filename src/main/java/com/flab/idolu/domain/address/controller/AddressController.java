@@ -4,6 +4,7 @@ import static com.flab.idolu.global.common.ResponseMessage.Status.*;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -75,6 +76,20 @@ public class AddressController {
 
 		Long memberId = SessionUtil.getLoginMemberId(httpSession);
 		addressService.updateAddressByIdAndMemberId(requestAddressDto, id, memberId);
+
+		return ResponseEntity.ok(ResponseMessage.builder()
+			.status(SUCCESS)
+			.build());
+	}
+
+	@PatchMapping("/{id}")
+	@MemberLoginCheck
+	public ResponseEntity<ResponseMessage> deleteAddress(
+		@PathVariable Long id,
+		HttpSession httpSession
+	) {
+		Long memberId = SessionUtil.getLoginMemberId(httpSession);
+		addressService.updateIsDeletedByIdAndMemberId(id, memberId);
 
 		return ResponseEntity.ok(ResponseMessage.builder()
 			.status(SUCCESS)
