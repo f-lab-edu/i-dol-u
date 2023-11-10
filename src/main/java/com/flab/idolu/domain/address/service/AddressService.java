@@ -10,6 +10,7 @@ import org.springframework.util.Assert;
 
 import com.flab.idolu.domain.address.dto.request.RegisterAddressDto;
 import com.flab.idolu.domain.address.dto.response.AddressInfoDto;
+import com.flab.idolu.domain.address.exception.AddressNotFoundException;
 import com.flab.idolu.domain.address.repository.AddressRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,12 @@ public class AddressService {
 	public List<AddressInfoDto> findByMemberId(Long memberId) {
 
 		return addressRepository.findByMemberId(memberId);
+	}
+
+	@Transactional(readOnly = true)
+	public AddressInfoDto findByIdAndMemberId(Long id, Long memberId) {
+		return addressRepository.findByIdAndMemberId(id, memberId)
+			.orElseThrow(() -> new AddressNotFoundException("조회하려는 배송지가 없습니다."));
 	}
 
 	private void validateRegisterAddressDto(RegisterAddressDto registerAddressDto) {
