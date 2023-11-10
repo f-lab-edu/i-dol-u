@@ -30,7 +30,6 @@ public class AddressService {
 
 	@Transactional(readOnly = true)
 	public List<AddressInfoDto> findByMemberId(Long memberId) {
-
 		return addressRepository.findByMemberId(memberId);
 	}
 
@@ -38,6 +37,13 @@ public class AddressService {
 	public AddressInfoDto findByIdAndMemberId(Long id, Long memberId) {
 		return addressRepository.findByIdAndMemberId(id, memberId)
 			.orElseThrow(() -> new AddressNotFoundException("조회하려는 배송지가 없습니다."));
+	}
+
+	@Transactional
+	public void updateAddressByIdAndMemberId(RequestAddressDto requestAddressDto, Long id, Long memberId) {
+		validateRegisterAddressDto(requestAddressDto);
+
+		addressRepository.updateAddressByIdAndMemberId(requestAddressDto.toEntity(memberId), id);
 	}
 
 	private void validateRegisterAddressDto(RequestAddressDto requestAddressDto) {

@@ -19,4 +19,6 @@ public interface AddressRepository {
 	List<AddressInfoDto> findByMemberId(Long memberId);
 
 	Optional<AddressInfoDto> findByIdAndMemberId(@Param("id") Long id, @Param("memberId") Long memberId);
+
+	void updateAddressByIdAndMemberId(@Param("address") Address address, @Param("id") Long id);
 }
