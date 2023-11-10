@@ -1,6 +1,6 @@
 package com.flab.idolu.domain.fixture;
 
-import com.flab.idolu.domain.address.dto.request.RegisterAddressDto;
+import com.flab.idolu.domain.address.dto.request.RequestAddressDto;
 import com.flab.idolu.domain.address.entity.Address;
 
 public class AddressFixture {
@@ -14,7 +14,7 @@ public class AddressFixture {
 		.address2("상세 주소")
 		.build();
 
-	public static final RegisterAddressDto DEFAULT_REGISTER_ADDRESS = RegisterAddressDto.builder()
+	public static final RequestAddressDto DEFAULT_REGISTER_ADDRESS = RequestAddressDto.builder()
 		.recipient("oneny")
 		.phone("01011111111")
 		.zipCode("51324")
@@ -22,7 +22,7 @@ public class AddressFixture {
 		.address2("상세 주소")
 		.build();
 
-	public static final RegisterAddressDto BLANK_RECIPIENT_REGISTER_ADDRESS = RegisterAddressDto.builder()
+	public static final RequestAddressDto BLANK_RECIPIENT_REGISTER_ADDRESS = RequestAddressDto.builder()
 		.recipient("")
 		.phone("01011111111")
 		.zipCode("51324")
@@ -30,7 +30,7 @@ public class AddressFixture {
 		.address2("상세 주소")
 		.build();
 
-	public static final RegisterAddressDto BLANK_PHONE_REGISTER_ADDRESS = RegisterAddressDto.builder()
+	public static final RequestAddressDto BLANK_PHONE_REGISTER_ADDRESS = RequestAddressDto.builder()
 		.recipient("oneny")
 		.phone("")
 		.zipCode("51324")
@@ -38,7 +38,7 @@ public class AddressFixture {
 		.address2("상세 주소")
 		.build();
 
-	public static final RegisterAddressDto BLANK_ZIPCODE_REGISTER_ADDRESS = RegisterAddressDto.builder()
+	public static final RequestAddressDto BLANK_ZIPCODE_REGISTER_ADDRESS = RequestAddressDto.builder()
 		.recipient("oneny")
 		.phone("01011111111")
 		.zipCode("")
@@ -46,7 +46,7 @@ public class AddressFixture {
 		.address2("상세 주소")
 		.build();
 
-	public static final RegisterAddressDto BLANK_ADDRESS1_REGISTER_ADDRESS = RegisterAddressDto.builder()
+	public static final RequestAddressDto BLANK_ADDRESS1_REGISTER_ADDRESS = RequestAddressDto.builder()
 		.recipient("oneny")
 		.phone("01011111111")
 		.zipCode("51324")
@@ -54,7 +54,7 @@ public class AddressFixture {
 		.address2("상세 주소")
 		.build();
 
-	public static final RegisterAddressDto INVALID_PHONE_REGISTER_ADDRESS = RegisterAddressDto.builder()
+	public static final RequestAddressDto INVALID_PHONE_REGISTER_ADDRESS = RequestAddressDto.builder()
 		.recipient("oneny")
 		.phone("1011111111")
 		.zipCode("51324")

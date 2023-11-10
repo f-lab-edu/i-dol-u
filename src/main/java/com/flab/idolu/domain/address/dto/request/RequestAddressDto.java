@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class RegisterAddressDto {
+public class RequestAddressDto {
 
 	private String recipient;
 	private String phone;
