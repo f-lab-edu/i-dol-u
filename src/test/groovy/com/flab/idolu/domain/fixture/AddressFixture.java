@@ -14,7 +14,7 @@ public class AddressFixture {
 		.address2("상세 주소")
 		.build();
 
-	public static final RequestAddressDto DEFAULT_REGISTER_ADDRESS = RequestAddressDto.builder()
+	public static final RequestAddressDto DEFAULT_REQUEST_ADDRESS = RequestAddressDto.builder()
 		.recipient("oneny")
 		.phone("01011111111")
 		.zipCode("51324")
