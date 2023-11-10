@@ -1,5 +1,6 @@
 package com.flab.idolu.domain.address.service
 
+
 import com.flab.idolu.domain.address.repository.AddressRepository
 import spock.lang.Specification
 
@@ -14,7 +15,7 @@ class AddressServiceTest extends Specification {
         addressService = new AddressService(addressRepository)
     }
 
-    def "배송주소 등록 성공 테스트"() {
+    def "배송지 등록 성공 테스트"() {
         when:
         addressService.registerAddress(DEFAULT_REGISTER_ADDRESS, 1L)
 
@@ -22,7 +23,7 @@ class AddressServiceTest extends Specification {
         1 * addressRepository.insertAddress(_)
     }
 
-    def "배송주소 등록 실패 테스트: #exceptionMessage"() {
+    def "배송지 등록 실패 테스트: #exceptionMessage"() {
         when:
         addressService.registerAddress(addressDto, 1L)
 
@@ -39,5 +40,14 @@ class AddressServiceTest extends Specification {
         INVALID_PHONE_REGISTER_ADDRESS   | "휴대전화 양식에 맞춰야 합니다."
     }
 
+    def "배송지 조회 테스트"() {
+        given:
+        addressRepository.findByMemberId(1L) >> List.of(_, _)
 
+        when:
+        def list = addressService.findByMemberId(1L)
+
+        then:
+        list.size() == 2
+    }
 }
