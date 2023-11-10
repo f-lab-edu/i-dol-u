@@ -16,7 +16,7 @@
                address_1,
                address_2
         FROM address
-        WHERE member_id = 44
+        WHERE member_id = #{memberId}
           AND is_deleted = false;
     </select>
 </mapper>
