@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.flab.idolu.domain.address.exception.AddressNotFoundException;
 import com.flab.idolu.domain.member.exception.EmailDuplicateException;
 import com.flab.idolu.domain.member.exception.MemberNotFoundException;
 import com.flab.idolu.domain.member.exception.PasswordNotMatchException;
@@ -41,6 +42,7 @@ public class ExceptionAdvice {
 	protected ResponseEntity<ResponseMessage> memberNotFoundException(MemberNotFoundException exception) {
 		return ResponseEntity.badRequest()
 			.body(ResponseMessage.builder()
+				.status(FAIL)
 				.message(exception.getMessage())
 				.build());
 	}
@@ -49,6 +51,7 @@ public class ExceptionAdvice {
 	protected ResponseEntity<ResponseMessage> memberNotFoundException(PasswordNotMatchException exception) {
 		return ResponseEntity.badRequest()
 			.body(ResponseMessage.builder()
+				.status(FAIL)
 				.message(exception.getMessage())
 				.build());
 	}
@@ -57,6 +60,16 @@ public class ExceptionAdvice {
 	protected ResponseEntity<ResponseMessage> unauthorizedMemberException(UnauthorizedMemberException exception) {
 		return ResponseEntity.status(UNAUTHORIZED)
 			.body(ResponseMessage.builder()
+				.status(FAIL)
+				.message(exception.getMessage())
+				.build());
+	}
+
+	@ExceptionHandler(AddressNotFoundException.class)
+	protected ResponseEntity<ResponseMessage> unauthorizedMemberException(AddressNotFoundException exception) {
+		return ResponseEntity.status(BAD_REQUEST)
+			.body(ResponseMessage.builder()
+				.status(FAIL)
 				.message(exception.getMessage())
 				.build());
 	}
