@@ -75,4 +75,12 @@ class AddressServiceTest extends Specification {
         BLANK_ADDRESS1_REGISTER_ADDRESS  | "기본주소를 입력해야 합니다."
         INVALID_PHONE_REGISTER_ADDRESS   | "휴대전화 양식에 맞춰야 합니다."
     }
+
+    def "배송지 삭제 테스트"() {
+        when:
+        addressService.updateIsDeletedByIdAndMemberId(1L, 1L)
+
+        then:
+        1 * addressRepository.updateIsDeletedByIdAndMemberId(1L, 1L)
+    }
 }
