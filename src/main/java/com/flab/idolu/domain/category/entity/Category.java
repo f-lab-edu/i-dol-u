@@ -16,8 +16,8 @@ import lombok.NoArgsConstructor;
 public class Category {
 
 	private Long id;
-	private String group1;
-	private String group2;
+	private Group1 group1;
+	private Group2 group2;
 	private boolean isDeleted;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
