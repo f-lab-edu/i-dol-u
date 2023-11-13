@@ -19,4 +19,36 @@
         WHERE member_id = #{memberId}
           AND is_deleted = false;
     </select>
+
+    <select id="findByIdAndMemberId" resultType="AddressInfoDto">
+        SELECT id,
+               recipient,
+               phone,
+               zip_code,
+               address_1,
+               address_2
+        FROM address
+        WHERE id = #{id}
+          AND member_id = #{memberId}
+          AND is_deleted = false;
+    </select>
+
+    <update id="updateAddressByIdAndMemberId">
+        UPDATE address
+        SET recipient  = #{address.recipient},
+            phone      = #{address.phone},
+            zip_code   = #{address.zipCode},
+            address_1  = #{address.address1},
+            address_2  = #{address.address2},
+            updated_at = NOW()
+        WHERE id = #{id}
+          AND member_id = #{address.memberId}
+    </update>
+
+    <update id="updateIsDeletedByIdAndMemberId">
+        UPDATE address
+        SET is_deleted = true
+        WHERE id = #{id}
+          AND member_id = #{memberId}
+    </update>
 </mapper>
