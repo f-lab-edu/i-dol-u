@@ -1,5 +1,7 @@
 package com.flab.idolu.domain.member.service;
 
+import static com.flab.idolu.global.util.ValidateDtoUtil.*;
+
 import java.util.regex.Pattern;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -81,6 +83,8 @@ public class MemberService {
 	private void validateModifyMemberDto(ModifyMemberDto modifyMemberDto) {
 		Assert.hasText(modifyMemberDto.getName(), "이름을 입력해야 합니다.");
 		Assert.hasText(modifyMemberDto.getPhone(), "휴대전화를 입력해야 합니다.");
+
+		validatePhone(modifyMemberDto.getPhone());
 	}
 
 	private void validateLoginMemberDto(LoginMemberDto loginMemberDto) {
@@ -116,5 +120,6 @@ public class MemberService {
 		Assert.isTrue(
 			signUpMemberDto.getPassword().equals(signUpMemberDto.getPasswordConfirm()),
 			"비밀번호와 비밀번호 확인이 일치해야 합니다.");
+		validatePhone(signUpMemberDto.getPhone());
 	}
 }

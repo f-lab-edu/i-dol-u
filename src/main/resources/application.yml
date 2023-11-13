@@ -5,7 +5,7 @@ spring:
     username: ${MYSQL_USERNAME}
     password: ${MYSQL_PASSWORD}
 mybatis:
-  type-aliases-package: com.flab.idolu.domain.*.entity
+  type-aliases-package: com.flab.idolu.domain.*.entity, com.flab.idolu.domain.*.dto.response
   configuration:
     map-underscore-to-camel-case: true
     use-generated-keys: true
