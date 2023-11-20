@@ -42,6 +42,7 @@ class CategoryServiceTest extends Specification {
         group1      | group2    | exceptionMessage
         "ACCESSORY" | "KEYRING" | "ACCESSORY에 해당하는 group1이 없습니다."
         "CLOTH"     | "BOTTOM"  | "BOTTOM에 해당하는 group2이 없습니다."
+        "CLOTH"     | "KEYRING" | "KEYRING에 해당하는 group2이 없습니다."
     }
 
     def "카테고리 조회 실패 테스트"() {

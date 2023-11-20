@@ -19,7 +19,7 @@ public class CategoryService {
 	private final CategoryRepository categoryRepository;
 
 	public Category findCategoryByGroup1AndGroup2(String group1, String group2) {
-		return categoryRepository.findCategoryByGroup1AndGroup2(toGroup1(group1), toGroup2(group2))
+		return categoryRepository.findCategoryByGroup1AndGroup2(toGroup1(group1), toGroup2(group2, group1))
 			.orElseThrow(
 				() -> new CategoryNotFoundException("%s, %s에 해당하는 카테고리가 없습니다".formatted(group1, group2)));
 	}
@@ -31,10 +31,11 @@ public class CategoryService {
 			.orElseThrow(() -> new IllegalArgumentException("%s에 해당하는 group1이 없습니다.".formatted(group)));
 	}
 
-	private Group2 toGroup2(String group) {
+	private Group2 toGroup2(String group2, String group1) {
 		return Arrays.stream(Group2.values())
-			.filter(group2 -> group2.name().equals(group))
+			.filter(group -> group.isGroup2Of(group1))
+			.filter(group -> group.name().equals(group2))
 			.findAny()
-			.orElseThrow(() -> new IllegalArgumentException("%s에 해당하는 group2이 없습니다.".formatted(group)));
+			.orElseThrow(() -> new IllegalArgumentException("%s에 해당하는 group2이 없습니다.".formatted(group2)));
 	}
 }
