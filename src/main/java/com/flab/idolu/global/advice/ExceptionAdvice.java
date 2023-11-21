@@ -22,6 +22,7 @@ public class ExceptionAdvice {
 
 	@ExceptionHandler(IllegalArgumentException.class)
 	protected ResponseEntity<ResponseMessage> illegalArgumentException(IllegalArgumentException exception) {
+		log.info("IllegalArgumentException: {}", exception.getMessage());
 		return ResponseEntity.status(BAD_REQUEST)
 			.body(ResponseMessage.builder()
 				.status(FAIL)
@@ -31,6 +32,7 @@ public class ExceptionAdvice {
 
 	@ExceptionHandler(EmailDuplicateException.class)
 	protected ResponseEntity<ResponseMessage> emailDuplicationException(EmailDuplicateException exception) {
+		log.info("EmailDuplicateException: {}", exception.getMessage());
 		return ResponseEntity.status(BAD_REQUEST)
 			.body(ResponseMessage.builder()
 				.status(FAIL)
@@ -40,6 +42,7 @@ public class ExceptionAdvice {
 
 	@ExceptionHandler(MemberNotFoundException.class)
 	protected ResponseEntity<ResponseMessage> memberNotFoundException(MemberNotFoundException exception) {
+		log.info("MemberNotFoundException: {}", exception.getMessage());
 		return ResponseEntity.badRequest()
 			.body(ResponseMessage.builder()
 				.status(FAIL)
@@ -49,6 +52,7 @@ public class ExceptionAdvice {
 
 	@ExceptionHandler(PasswordNotMatchException.class)
 	protected ResponseEntity<ResponseMessage> memberNotFoundException(PasswordNotMatchException exception) {
+		log.info("PasswordNotMatchException: {}", exception.getMessage());
 		return ResponseEntity.badRequest()
 			.body(ResponseMessage.builder()
 				.status(FAIL)
@@ -58,6 +62,7 @@ public class ExceptionAdvice {
 
 	@ExceptionHandler(UnauthorizedMemberException.class)
 	protected ResponseEntity<ResponseMessage> unauthorizedMemberException(UnauthorizedMemberException exception) {
+		log.info("UnauthorizedMemberException: {}", exception.getMessage());
 		return ResponseEntity.status(UNAUTHORIZED)
 			.body(ResponseMessage.builder()
 				.status(FAIL)
@@ -66,7 +71,8 @@ public class ExceptionAdvice {
 	}
 
 	@ExceptionHandler(AddressNotFoundException.class)
-	protected ResponseEntity<ResponseMessage> unauthorizedMemberException(AddressNotFoundException exception) {
+	protected ResponseEntity<ResponseMessage> addressNotFoundException(AddressNotFoundException exception) {
+		log.info("AddressNotFoundException: {}", exception.getMessage());
 		return ResponseEntity.status(BAD_REQUEST)
 			.body(ResponseMessage.builder()
 				.status(FAIL)
