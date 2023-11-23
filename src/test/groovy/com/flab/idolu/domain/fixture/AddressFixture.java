@@ -1,6 +1,7 @@
 package com.flab.idolu.domain.fixture;
 
 import com.flab.idolu.domain.address.dto.request.RequestAddressDto;
+import com.flab.idolu.domain.address.dto.response.AddressInfoDto;
 import com.flab.idolu.domain.address.entity.Address;
 
 public class AddressFixture {
@@ -57,6 +58,15 @@ public class AddressFixture {
 	public static final RequestAddressDto INVALID_PHONE_REGISTER_ADDRESS = RequestAddressDto.builder()
 		.recipient("oneny")
 		.phone("1011111111")
+		.zipCode("51324")
+		.address1("기본 주소")
+		.address2("상세 주소")
+		.build();
+
+	public static final AddressInfoDto DEFAULT_ADDRESS_INFO_DTO = AddressInfoDto.builder()
+		.id(1L)
+		.recipient("oneny")
+		.phone("01011111111")
 		.zipCode("51324")
 		.address1("기본 주소")
 		.address2("상세 주소")
