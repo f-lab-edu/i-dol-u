@@ -4,6 +4,10 @@ spring:
     url: jdbc:mysql://localhost:3306/idolu?serverTimezone=UTC&characterEncoding=utf8
     username: ${MYSQL_USERNAME}
     password: ${MYSQL_PASSWORD}
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
 mybatis:
   type-aliases-package: com.flab.idolu.domain.*.entity, com.flab.idolu.domain.*.dto.response
   configuration:
