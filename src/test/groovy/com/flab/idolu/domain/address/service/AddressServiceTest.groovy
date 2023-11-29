@@ -1,6 +1,7 @@
 package com.flab.idolu.domain.address.service
 
 
+import com.flab.idolu.domain.address.exception.AddressNotFoundException
 import com.flab.idolu.domain.address.repository.AddressRepository
 import spock.lang.Specification
 
@@ -40,7 +41,7 @@ class AddressServiceTest extends Specification {
         INVALID_PHONE_REGISTER_ADDRESS   | "휴대전화 양식에 맞춰야 합니다."
     }
 
-    def "배송지 조회 테스트"() {
+    def "배송지 조회 성공 테스트"() {
         given:
         addressRepository.findByMemberId(1L) >> List.of(_, _)
 
@@ -49,6 +50,29 @@ class AddressServiceTest extends Specification {
 
         then:
         list.size() == 2
+    }
+
+    def "배송지 상세조회 성공 테스트"() {
+        given:
+        addressRepository.findByIdAndMemberId(1L, 1L) >> Optional.of(DEFAULT_ADDRESS_INFO_DTO)
+
+        when:
+        def address = addressService.findByIdAndMemberId(1L, 1L)
+
+        then:
+        address != null
+    }
+
+    def "배송지 상세조회 실패 테스트"() {
+        given:
+        addressRepository.findByIdAndMemberId(1L, 1L) >> Optional.empty()
+
+        when:
+        addressService.findByIdAndMemberId(1L, 1L)
+
+        then:
+        def exception = thrown(AddressNotFoundException)
+        exception.message == "조회하려는 배송지가 없습니다."
     }
 
     def "배송지 수정 성공 테스트"() {

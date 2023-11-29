@@ -1,8 +1,10 @@
 package com.flab.idolu.domain.address.dto.response;
 
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
 public class AddressInfoDto {
 
 	private Long id;
