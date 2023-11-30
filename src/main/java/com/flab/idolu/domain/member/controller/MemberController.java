@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.flab.idolu.domain.member.dto.request.LoginMemberDto;
 import com.flab.idolu.domain.member.dto.request.ModifyMemberDto;
 import com.flab.idolu.domain.member.dto.request.SignUpMemberDto;
+import com.flab.idolu.domain.member.entity.Member;
 import com.flab.idolu.domain.member.service.MemberService;
 import com.flab.idolu.global.annotation.MemberLoginCheck;
 import com.flab.idolu.global.common.ResponseMessage;
@@ -38,8 +39,9 @@ public class MemberController {
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<ResponseMessage> login(@RequestBody LoginMemberDto loginMemberDto) {
-		memberService.login(loginMemberDto);
+	public ResponseEntity<ResponseMessage> login(@RequestBody LoginMemberDto loginMemberDto, HttpSession httpSession) {
+		Member member = memberService.login(loginMemberDto);
+		SessionUtil.setLoginMemberId(httpSession, member.getId());
 
 		return ResponseEntity.ok(ResponseMessage.builder()
 			.status(SUCCESS)
@@ -47,8 +49,8 @@ public class MemberController {
 	}
 
 	@GetMapping("/logout")
-	public ResponseEntity<ResponseMessage> logout() {
-		memberService.logout();
+	public ResponseEntity<ResponseMessage> logout(HttpSession httpSession) {
+		SessionUtil.removeLoginMemberId(httpSession);
 
 		return ResponseEntity.ok(ResponseMessage.builder()
 			.status(SUCCESS)
