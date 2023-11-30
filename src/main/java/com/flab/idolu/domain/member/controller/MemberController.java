@@ -16,6 +16,7 @@ import com.flab.idolu.domain.member.dto.request.SignUpMemberDto;
 import com.flab.idolu.domain.member.entity.Member;
 import com.flab.idolu.domain.member.service.MemberService;
 import com.flab.idolu.global.annotation.MemberLoginCheck;
+import com.flab.idolu.global.annotation.SessionMemberId;
 import com.flab.idolu.global.common.ResponseMessage;
 import com.flab.idolu.global.util.SessionManager;
 
@@ -60,8 +61,7 @@ public class MemberController {
 
 	@MemberLoginCheck
 	@GetMapping("/myInfo")
-	public ResponseEntity<ResponseMessage> findMyInfo() {
-		Long memberId = sessionManager.getLoginMemberId();
+	public ResponseEntity<ResponseMessage> findMyInfo(@SessionMemberId Long memberId) {
 
 		return ResponseEntity.ok(ResponseMessage.builder()
 			.status(SUCCESS)
@@ -71,9 +71,11 @@ public class MemberController {
 
 	@MemberLoginCheck
 	@PatchMapping("/myInfo/edit")
-	public ResponseEntity<ResponseMessage> modifyMyInfo(@RequestBody ModifyMemberDto modifyMemberDto) {
+	public ResponseEntity<ResponseMessage> modifyMyInfo(
+		@RequestBody ModifyMemberDto modifyMemberDto,
+		@SessionMemberId Long memberId
+	) {
 
-		Long memberId = sessionManager.getLoginMemberId();
 		memberService.modifyMemberInfo(modifyMemberDto, memberId);
 
 		return ResponseEntity.ok(ResponseMessage.builder()
@@ -83,8 +85,7 @@ public class MemberController {
 
 	@MemberLoginCheck
 	@PatchMapping("/withdraw")
-	public ResponseEntity<ResponseMessage> withdrawMember() {
-		Long memberId = sessionManager.getLoginMemberId();
+	public ResponseEntity<ResponseMessage> withdrawMember(@SessionMemberId Long memberId) {
 		memberService.withdrawMember(memberId);
 
 		return ResponseEntity.ok(ResponseMessage.builder()
