@@ -16,9 +16,8 @@ import com.flab.idolu.domain.address.dto.request.RequestAddressDto;
 import com.flab.idolu.domain.address.service.AddressService;
 import com.flab.idolu.global.annotation.MemberLoginCheck;
 import com.flab.idolu.global.common.ResponseMessage;
-import com.flab.idolu.global.util.SessionUtil;
+import com.flab.idolu.global.util.SessionManager;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -27,14 +26,13 @@ import lombok.RequiredArgsConstructor;
 public class AddressController {
 
 	private final AddressService addressService;
+	private final SessionManager sessionManager;
 
 	@PostMapping
 	@MemberLoginCheck
-	public ResponseEntity<ResponseMessage> registerAddress(
-		@RequestBody RequestAddressDto requestAddressDto,
-		HttpSession httpSession) {
+	public ResponseEntity<ResponseMessage> registerAddress(@RequestBody RequestAddressDto requestAddressDto) {
 
-		Long memberId = SessionUtil.getLoginMemberId(httpSession);
+		Long memberId = sessionManager.getLoginMemberId();
 		addressService.registerAddress(requestAddressDto, memberId);
 
 		return ResponseEntity.ok(ResponseMessage.builder()
@@ -44,8 +42,8 @@ public class AddressController {
 
 	@GetMapping
 	@MemberLoginCheck
-	public ResponseEntity<ResponseMessage> getMyAddresses(HttpSession httpSession) {
-		Long memberId = SessionUtil.getLoginMemberId(httpSession);
+	public ResponseEntity<ResponseMessage> getMyAddresses() {
+		Long memberId = sessionManager.getLoginMemberId();
 
 		return ResponseEntity.ok(ResponseMessage.builder()
 			.status(SUCCESS)
@@ -55,11 +53,8 @@ public class AddressController {
 
 	@GetMapping("/{id}")
 	@MemberLoginCheck
-	public ResponseEntity<ResponseMessage> getMyAddress(
-		@PathVariable Long id,
-		HttpSession httpSession) {
-
-		Long memberId = SessionUtil.getLoginMemberId(httpSession);
+	public ResponseEntity<ResponseMessage> getMyAddress(@PathVariable Long id) {
+		Long memberId = sessionManager.getLoginMemberId();
 
 		return ResponseEntity.ok(ResponseMessage.builder()
 			.status(SUCCESS)
@@ -71,10 +66,9 @@ public class AddressController {
 	@MemberLoginCheck
 	public ResponseEntity<ResponseMessage> modifyMyAddress(
 		@PathVariable Long id,
-		@RequestBody RequestAddressDto requestAddressDto,
-		HttpSession httpSession) {
+		@RequestBody RequestAddressDto requestAddressDto) {
 
-		Long memberId = SessionUtil.getLoginMemberId(httpSession);
+		Long memberId = sessionManager.getLoginMemberId();
 		addressService.updateAddressByIdAndMemberId(requestAddressDto, id, memberId);
 
 		return ResponseEntity.ok(ResponseMessage.builder()
@@ -84,11 +78,8 @@ public class AddressController {
 
 	@PatchMapping("/{id}")
 	@MemberLoginCheck
-	public ResponseEntity<ResponseMessage> deleteAddress(
-		@PathVariable Long id,
-		HttpSession httpSession
-	) {
-		Long memberId = SessionUtil.getLoginMemberId(httpSession);
+	public ResponseEntity<ResponseMessage> deleteAddress(@PathVariable Long id) {
+		Long memberId = sessionManager.getLoginMemberId();
 		addressService.updateIsDeletedByIdAndMemberId(id, memberId);
 
 		return ResponseEntity.ok(ResponseMessage.builder()
