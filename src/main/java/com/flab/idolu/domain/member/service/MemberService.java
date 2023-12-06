@@ -18,9 +18,7 @@ import com.flab.idolu.domain.member.exception.EmailDuplicateException;
 import com.flab.idolu.domain.member.exception.MemberNotFoundException;
 import com.flab.idolu.domain.member.exception.PasswordNotMatchException;
 import com.flab.idolu.domain.member.repository.MemberRepository;
-import com.flab.idolu.global.util.SessionUtil;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -29,7 +27,6 @@ public class MemberService {
 
 	private final MemberRepository memberRepository;
 	private final PasswordEncoder passwordEncoder;
-	private final HttpSession httpSession;
 
 	@Transactional
 	public Long signUp(SignUpMemberDto signUpMemberDto) {
@@ -44,7 +41,7 @@ public class MemberService {
 	}
 
 	@Transactional(readOnly = true)
-	public void login(LoginMemberDto loginMemberDto) {
+	public Member login(LoginMemberDto loginMemberDto) {
 		validateLoginMemberDto(loginMemberDto);
 
 		Member member = memberRepository.findByEmail(loginMemberDto.getEmail())
@@ -53,11 +50,7 @@ public class MemberService {
 			throw new PasswordNotMatchException("비밀번호가 틀렸습니다.");
 		}
 
-		SessionUtil.setLoginMemberId(httpSession, member.getId());
-	}
-
-	public void logout() {
-		SessionUtil.removeLoginMemberId(httpSession);
+		return member;
 	}
 
 	@Transactional(readOnly = true)

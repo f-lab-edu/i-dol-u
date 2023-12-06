@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.flab.idolu.domain.address.dto.request.RequestAddressDto;
 import com.flab.idolu.domain.address.service.AddressService;
 import com.flab.idolu.global.annotation.MemberLoginCheck;
+import com.flab.idolu.global.annotation.SessionMemberId;
 import com.flab.idolu.global.common.ResponseMessage;
-import com.flab.idolu.global.util.SessionUtil;
+import com.flab.idolu.global.util.SessionManager;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -32,9 +32,8 @@ public class AddressController {
 	@MemberLoginCheck
 	public ResponseEntity<ResponseMessage> registerAddress(
 		@RequestBody RequestAddressDto requestAddressDto,
-		HttpSession httpSession) {
+		@SessionMemberId Long memberId) {
 
-		Long memberId = SessionUtil.getLoginMemberId(httpSession);
 		addressService.registerAddress(requestAddressDto, memberId);
 
 		return ResponseEntity.ok(ResponseMessage.builder()
@@ -44,8 +43,7 @@ public class AddressController {
 
 	@GetMapping
 	@MemberLoginCheck
-	public ResponseEntity<ResponseMessage> getMyAddresses(HttpSession httpSession) {
-		Long memberId = SessionUtil.getLoginMemberId(httpSession);
+	public ResponseEntity<ResponseMessage> getMyAddresses(@SessionMemberId Long memberId) {
 
 		return ResponseEntity.ok(ResponseMessage.builder()
 			.status(SUCCESS)
@@ -57,9 +55,7 @@ public class AddressController {
 	@MemberLoginCheck
 	public ResponseEntity<ResponseMessage> getMyAddress(
 		@PathVariable Long id,
-		HttpSession httpSession) {
-
-		Long memberId = SessionUtil.getLoginMemberId(httpSession);
+		@SessionMemberId Long memberId) {
 
 		return ResponseEntity.ok(ResponseMessage.builder()
 			.status(SUCCESS)
@@ -72,9 +68,8 @@ public class AddressController {
 	public ResponseEntity<ResponseMessage> modifyMyAddress(
 		@PathVariable Long id,
 		@RequestBody RequestAddressDto requestAddressDto,
-		HttpSession httpSession) {
+		@SessionMemberId Long memberId) {
 
-		Long memberId = SessionUtil.getLoginMemberId(httpSession);
 		addressService.updateAddressByIdAndMemberId(requestAddressDto, id, memberId);
 
 		return ResponseEntity.ok(ResponseMessage.builder()
@@ -86,9 +81,8 @@ public class AddressController {
 	@MemberLoginCheck
 	public ResponseEntity<ResponseMessage> deleteAddress(
 		@PathVariable Long id,
-		HttpSession httpSession
-	) {
-		Long memberId = SessionUtil.getLoginMemberId(httpSession);
+		@SessionMemberId Long memberId) {
+
 		addressService.updateIsDeletedByIdAndMemberId(id, memberId);
 
 		return ResponseEntity.ok(ResponseMessage.builder()

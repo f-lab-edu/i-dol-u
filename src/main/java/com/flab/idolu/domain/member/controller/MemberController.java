@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.flab.idolu.domain.member.dto.request.LoginMemberDto;
 import com.flab.idolu.domain.member.dto.request.ModifyMemberDto;
 import com.flab.idolu.domain.member.dto.request.SignUpMemberDto;
+import com.flab.idolu.domain.member.entity.Member;
 import com.flab.idolu.domain.member.service.MemberService;
 import com.flab.idolu.global.annotation.MemberLoginCheck;
+import com.flab.idolu.global.annotation.SessionMemberId;
 import com.flab.idolu.global.common.ResponseMessage;
-import com.flab.idolu.global.util.SessionUtil;
+import com.flab.idolu.global.util.SessionManager;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +29,7 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
 
 	private final MemberService memberService;
+	private final SessionManager sessionManager;
 
 	@PostMapping("/signup")
 	public ResponseEntity<ResponseMessage> signup(@RequestBody SignUpMemberDto signUpMemberDto) {
@@ -39,7 +42,8 @@ public class MemberController {
 
 	@PostMapping("/login")
 	public ResponseEntity<ResponseMessage> login(@RequestBody LoginMemberDto loginMemberDto) {
-		memberService.login(loginMemberDto);
+		Member member = memberService.login(loginMemberDto);
+		sessionManager.setLoginMemberId(member.getId());
 
 		return ResponseEntity.ok(ResponseMessage.builder()
 			.status(SUCCESS)
@@ -48,7 +52,7 @@ public class MemberController {
 
 	@GetMapping("/logout")
 	public ResponseEntity<ResponseMessage> logout() {
-		memberService.logout();
+		sessionManager.removeLoginMemberId();
 
 		return ResponseEntity.ok(ResponseMessage.builder()
 			.status(SUCCESS)
@@ -57,8 +61,7 @@ public class MemberController {
 
 	@MemberLoginCheck
 	@GetMapping("/myInfo")
-	public ResponseEntity<ResponseMessage> findMyInfo(HttpSession session) {
-		Long memberId = SessionUtil.getLoginMemberId(session);
+	public ResponseEntity<ResponseMessage> findMyInfo(@SessionMemberId Long memberId) {
 
 		return ResponseEntity.ok(ResponseMessage.builder()
 			.status(SUCCESS)
@@ -68,10 +71,11 @@ public class MemberController {
 
 	@MemberLoginCheck
 	@PatchMapping("/myInfo/edit")
-	public ResponseEntity<ResponseMessage> modifyMyInfo(HttpSession session,
-		@RequestBody ModifyMemberDto modifyMemberDto) {
+	public ResponseEntity<ResponseMessage> modifyMyInfo(
+		@RequestBody ModifyMemberDto modifyMemberDto,
+		@SessionMemberId Long memberId
+	) {
 
-		Long memberId = SessionUtil.getLoginMemberId(session);
 		memberService.modifyMemberInfo(modifyMemberDto, memberId);
 
 		return ResponseEntity.ok(ResponseMessage.builder()
@@ -81,8 +85,7 @@ public class MemberController {
 
 	@MemberLoginCheck
 	@PatchMapping("/withdraw")
-	public ResponseEntity<ResponseMessage> withdrawMember(HttpSession session) {
-		Long memberId = SessionUtil.getLoginMemberId(session);
+	public ResponseEntity<ResponseMessage> withdrawMember(@SessionMemberId Long memberId) {
 		memberService.withdrawMember(memberId);
 
 		return ResponseEntity.ok(ResponseMessage.builder()
