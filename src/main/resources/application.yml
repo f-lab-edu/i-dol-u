@@ -17,3 +17,23 @@ mybatis:
 jasypt:
   encryptor:
     password: ${JASYPT_PASSWORD}
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ENC(FiwzInS7wI6suzDGxytHgTFcFsLZbwoo)
+    username: ENC(NrsbtZBR03MLlkYUY8dkhN0OVbV8CDEc)
+    password: ENC(q9OlsY6oZ49E13S0FkkItrCRpzIThVwK)
+  data:
+    redis:
+      host: ENC(UhS802zm/QSPP5lnV0jTb1jVJWx6xA3L)
+      port: ENC(Hs+PeNOpl44nxiRMt5nz9NmBSU7lOPv1)
+      password: ENC(redispassword)
+
+server:
+  port: 8080
