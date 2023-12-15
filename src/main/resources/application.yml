@@ -17,7 +17,11 @@ mybatis:
 jasypt:
   encryptor:
     password: ${JASYPT_PASSWORD}
-
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
 ---
 
 spring:
