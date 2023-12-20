@@ -1,6 +1,7 @@
 package com.flab.idolu.global.filter;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.UUID;
 
 import org.slf4j.MDC;
@@ -18,14 +19,14 @@ import jakarta.servlet.http.HttpServletResponse;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class MDCLoggingFilter extends OncePerRequestFilter {
 
-	private static String REQUEST_ID = "request_id";
+	private static final String REQUEST_ID = "request_id";
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
 		FilterChain filterChain) throws ServletException, IOException {
 
-		UUID uuid = UUID.randomUUID();
-		MDC.put(REQUEST_ID, uuid.toString());
+		String requestId = request.getHeader("X-Request-ID");
+		MDC.put(REQUEST_ID, Objects.requireNonNullElse(requestId, UUID.randomUUID().toString().replaceAll("-", "")));
 		filterChain.doFilter(request, response);
 		MDC.clear();
 	}

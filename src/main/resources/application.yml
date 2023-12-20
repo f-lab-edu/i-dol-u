@@ -8,6 +8,7 @@ spring:
     redis:
       host: ENC(ItcOHb8ScqGMgddHtdmOvWENNiyPIm+U)
       port: ENC(wGSwwvSRNC7IppcI+oLeKA==)
+      password:
 mybatis:
   type-aliases-package: com.flab.idolu.domain.*.entity, com.flab.idolu.domain.*.dto.response
   configuration:
@@ -17,23 +18,47 @@ mybatis:
 jasypt:
   encryptor:
     password: ${JASYPT_PASSWORD}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+---
+
+spring:
+  config:
+    activate:
+      on-profile: prod1
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ENC(moRXEEwcSIVMUd9UmyV67PSsqMz/BybC5aSU5XSTSFBsF9htFycBmoEy0DQg7MtX)
+    username: ENC(v1Qf/pZcdMx6bZ2sth8h2A==)
+    password: ENC(YEslivkCss7owXDEzcufYjDhOpGmh12f)
+  data:
+    redis:
+      host: ENC(X5l3B3IOUY0jRMkCuayh2gqCPCD6mIf9)
+      port: ENC(HdD4vqgrg4X5YTE26mKNkw==)
+      password: ENC(1KIy5fYk1jIpW44zkkL8qs7uI5motiCK)
+
+server:
+  port: 8080
 
 ---
 
 spring:
   config:
     activate:
-      on-profile: prod
+      on-profile: prod2
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ENC(FiwzInS7wI6suzDGxytHgTFcFsLZbwoo)
-    username: ENC(NrsbtZBR03MLlkYUY8dkhN0OVbV8CDEc)
-    password: ENC(q9OlsY6oZ49E13S0FkkItrCRpzIThVwK)
+    url: ENC(moRXEEwcSIVMUd9UmyV67PSsqMz/BybC5aSU5XSTSFBsF9htFycBmoEy0DQg7MtX)
+    username: ENC(v1Qf/pZcdMx6bZ2sth8h2A==)
+    password: ENC(YEslivkCss7owXDEzcufYjDhOpGmh12f)
   data:
     redis:
-      host: ENC(UhS802zm/QSPP5lnV0jTb1jVJWx6xA3L)
-      port: ENC(Hs+PeNOpl44nxiRMt5nz9NmBSU7lOPv1)
-      password: ENC(redispassword)
+      host: ENC(X5l3B3IOUY0jRMkCuayh2gqCPCD6mIf9)
+      port: ENC(HdD4vqgrg4X5YTE26mKNkw==)
+      password: ENC(1KIy5fYk1jIpW44zkkL8qs7uI5motiCK)
 
 server:
-  port: 8080
+  port: 8081
