@@ -35,6 +35,7 @@
 
 - [회원가입 동시성 이슈 테스트 - DB Unique 활용하기](https://oneny.tistory.com/88)
 - [상품 구매 트랜잭션으로 보는 부정합 문제](https://oneny.tistory.com/94)
+- [synchronized vs Pessimistic Lock vs Distributed Lock](https://oneny.tistory.com/109)
 
 ### 기타
 
