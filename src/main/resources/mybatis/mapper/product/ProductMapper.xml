@@ -35,4 +35,20 @@
             <if test="iDolId != null">AND i_dol_id = #{iDolId}</if>
         </where>
     </select>
+
+    <select id="findById" resultType="Product">
+        SELECT id,
+               name,
+               stock
+        FROM product
+        WHERE id = #{id}
+            FOR UPDATE
+    </select>
+
+    <update id="updateProductStock" parameterType="Product">
+        UPDATE product
+        SET stock      = #{stock},
+            updated_at = now()
+        WHERE id = #{id}
+    </update>
 </mapper>
