@@ -6,13 +6,13 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import com.flab.idolu.domain.product.dto.response.ProductListResponseDto;
+import com.flab.idolu.domain.product.dto.response.ProductPaginationDto;
 
 @Mapper
 @Repository
 public interface ProductRepository {
 
-	List<ProductListResponseDto> findByCategoryIdAndIDolId(
+	List<ProductPaginationDto> findByCategoryIdAndIDolId(
 		@Param("categoryId") Integer categoryId,
 		@Param("iDolId") Integer iDolId,
 		@Param("offset") int offset,

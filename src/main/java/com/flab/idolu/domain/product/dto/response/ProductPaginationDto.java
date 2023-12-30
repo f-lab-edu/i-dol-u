@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class ProductListResponseDto {
+public class ProductPaginationDto {
 
 	private Long id;
 	private Long categoryId;
