@@ -37,9 +37,7 @@
     </select>
 
     <select id="findById" resultType="Product">
-        SELECT id,
-               name,
-               stock
+        SELECT *
         FROM product
         WHERE id = #{id}
             FOR UPDATE

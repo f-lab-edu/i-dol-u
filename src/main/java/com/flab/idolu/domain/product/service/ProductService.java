@@ -1,12 +1,16 @@
 package com.flab.idolu.domain.product.service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.flab.idolu.domain.product.dto.response.ProductListResponseDto;
 import com.flab.idolu.domain.product.dto.response.ProductPaginationDto;
+import com.flab.idolu.domain.product.entity.Product;
+import com.flab.idolu.domain.product.exception.InsufficientStockException;
+import com.flab.idolu.domain.product.exception.ProductNotFoundException;
 import com.flab.idolu.domain.product.repository.ProductRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -29,5 +33,18 @@ public class ProductService {
 			.products(products)
 			.totalCount(totalCount)
 			.build();
+	}
+
+	@Transactional
+	public void updateProductStock(Long id, int purchaseStock) {
+		Product product = productRepository.findById(id)
+			.orElseThrow(() -> new ProductNotFoundException("상품이 없습니다."));
+
+		if (product.getStock() < purchaseStock) {
+			throw new InsufficientStockException("재고는 0개 미만이 될 수 없습니다.");
+		}
+
+		product.decreaseStock(purchaseStock);
+		productRepository.updateProductStock(product);
 	}
 }
