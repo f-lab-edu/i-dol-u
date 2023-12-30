@@ -15,7 +15,7 @@ public class ProductService {
 
 	private final ProductRepository productRepository;
 
-	public List<ProductPaginationDto> findByCategoryIdAndIDolId(Integer categoryId, Integer iDolId,
+	public List<ProductPaginationDto> findByCategoryIdAndIDolId(Long categoryId, Long iDolId,
 		int offset, int size, String order) {
 
 		return productRepository.findByCategoryIdAndIDolId(categoryId, iDolId, offset * size, size, order);

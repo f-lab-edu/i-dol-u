@@ -13,9 +13,11 @@ import com.flab.idolu.domain.product.dto.response.ProductPaginationDto;
 public interface ProductRepository {
 
 	List<ProductPaginationDto> findByCategoryIdAndIDolId(
-		@Param("categoryId") Integer categoryId,
-		@Param("iDolId") Integer iDolId,
+		@Param("categoryId") Long categoryId,
+		@Param("iDolId") Long iDolId,
 		@Param("offset") int offset,
 		@Param("size") int size,
 		@Param("order") String order);
+
+	Long getTotalCountByCategoryIdAndIDolId(@Param("categoryId") Long categoryId, @Param("iDolId") Long iDolId);
 }

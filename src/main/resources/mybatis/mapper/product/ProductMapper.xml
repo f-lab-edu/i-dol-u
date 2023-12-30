@@ -26,4 +26,13 @@
             OFFSET #{offset}
         ) pt ON pt.id = p.id;
     </select>
+
+    <select id="getTotalCountByCategoryIdAndIDolId" resultType="Long">
+        SELECT COUNT(*)
+        FROM product
+        <where>
+            <if test="categoryId != null">AND category_id = #{categoryId}</if>
+            <if test="iDolId != null">AND i_dol_id = #{iDolId}</if>
+        </where>
+    </select>
 </mapper>

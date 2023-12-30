@@ -21,8 +21,8 @@ public class ProductController {
 
 	@GetMapping
 	public ResponseMessage getProductsByCategoryAndIDol(
-		@RequestParam(required = false) Integer categoryId,
-		@RequestParam(required = false) Integer iDolId,
+		@RequestParam(required = false) Long categoryId,
+		@RequestParam(required = false) Long iDolId,
 		@RequestParam(defaultValue = "0") int offset,
 		@RequestParam(defaultValue = "10") int size,
 		@RequestParam(defaultValue = "DATE") String order
