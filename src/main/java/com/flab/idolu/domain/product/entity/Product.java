@@ -21,6 +21,7 @@ public class Product {
 	private Long iDolId;
 	private String name;
 	private BigDecimal price;
+	private Integer stock;
 	private String imageUrl;
 	private String description;
 	private boolean isDeleted;
