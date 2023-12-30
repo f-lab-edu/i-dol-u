@@ -2,6 +2,7 @@ package com.flab.idolu.domain.product.controller;
 
 import static com.flab.idolu.global.common.ResponseMessage.Status.*;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,7 +21,7 @@ public class ProductController {
 	private final ProductService productService;
 
 	@GetMapping
-	public ResponseMessage getProductsByCategoryAndIDol(
+	public ResponseEntity<ResponseMessage> getProductsByCategoryAndIDol(
 		@RequestParam(required = false) Long categoryId,
 		@RequestParam(required = false) Long iDolId,
 		@RequestParam(defaultValue = "0") int offset,
@@ -28,9 +29,9 @@ public class ProductController {
 		@RequestParam(defaultValue = "DATE") String order
 	) {
 
-		return ResponseMessage.builder()
+		return ResponseEntity.ok(ResponseMessage.builder()
 			.status(SUCCESS)
 			.result(productService.findByCategoryIdAndIDolId(categoryId, iDolId, offset, size, order))
-			.build();
+			.build());
 	}
 }

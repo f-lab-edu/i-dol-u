@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.flab.idolu.domain.product.repository.ProductRepository">
 
-    <select id="findByCategoryIdAndIDolId" resultType="ProductListResponseDto">
+    <select id="findByCategoryIdAndIDolId" resultType="ProductPaginationDto">
         SELECT pt.id, category_id, i_dol_id, name, price, stock, image_url
         FROM product p
         JOIN (SELECT id
