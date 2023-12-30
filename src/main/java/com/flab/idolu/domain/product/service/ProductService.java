@@ -3,6 +3,7 @@ package com.flab.idolu.domain.product.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.flab.idolu.domain.product.dto.response.ProductListResponseDto;
 import com.flab.idolu.domain.product.dto.response.ProductPaginationDto;
@@ -16,6 +17,7 @@ public class ProductService {
 
 	private final ProductRepository productRepository;
 
+	@Transactional(readOnly = true)
 	public ProductListResponseDto findByCategoryIdAndIDolId(Long categoryId, Long iDolId,
 		int offset, int size, String order) {
 
