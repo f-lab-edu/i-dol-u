@@ -14,19 +14,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Order {
+public class OrderProduct {
 
 	private Long id;
-	private Long memberId;
-	private String recipient;
-	private String phone;
-	private String zipCode;
-	private String address1;
-	private String address2;
-	private OrderStatus orderStatus;
-	private BigDecimal totalPrice;
-	private Integer totalQuantity;
-	private boolean isDeleted;
+	private Long orderId;
+	private Long productId;
+	private BigDecimal price;
+	private Integer quantity;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
 }
