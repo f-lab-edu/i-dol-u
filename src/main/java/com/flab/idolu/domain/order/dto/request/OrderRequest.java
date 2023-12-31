@@ -19,8 +19,6 @@ public class OrderRequest {
 	private String zipCode;
 	private String address1;
 	private String address2;
-	private Integer totalPrice;
-	private Integer totalQuantity;
 	private List<OrderLineItemDto> orderLineItems;
 
 	public Order toEntity(Long memberId) {
@@ -32,8 +30,11 @@ public class OrderRequest {
 			.address1(address1)
 			.address2(address2)
 			.orderStatus(OrderStatus.ORDERED)
-			.totalPrice(BigDecimal.valueOf(totalPrice))
-			.totalQuantity(totalQuantity)
+			.totalPrice(orderLineItems.stream()
+				.map(orderLineItemDto -> orderLineItemDto.getPrice()
+					.multiply(BigDecimal.valueOf(orderLineItemDto.getQuantity())))
+				.reduce(BigDecimal.ZERO, BigDecimal::add))
+			.totalQuantity(orderLineItems.stream().map(OrderLineItemDto::getQuantity).reduce(0, Integer::sum))
 			.build();
 	}
 
