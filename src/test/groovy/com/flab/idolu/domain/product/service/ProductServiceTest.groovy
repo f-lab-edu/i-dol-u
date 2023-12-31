@@ -1,7 +1,5 @@
 package com.flab.idolu.domain.product.service
 
-import com.flab.idolu.domain.fixture.ProductFixture
-import com.flab.idolu.domain.product.entity.Product
 import com.flab.idolu.domain.product.exception.InsufficientStockException
 import com.flab.idolu.domain.product.exception.ProductNotFoundException
 import com.flab.idolu.domain.product.repository.ProductRepository
@@ -57,7 +55,7 @@ class ProductServiceTest extends Specification {
 
     def "재고 차감 성공"() {
         given:
-        productRepository.findById(1L) >> Optional.of(ProductFixture.DEFAULT_PRODUCT)
+        productRepository.findById(1L) >> Optional.of(DEFAULT_PRODUCT)
 
         when:
         productService.updateProductStock(1L, 3)
