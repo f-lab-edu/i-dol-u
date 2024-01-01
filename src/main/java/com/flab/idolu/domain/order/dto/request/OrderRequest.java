@@ -6,6 +6,9 @@ import java.util.List;
 import com.flab.idolu.domain.order.entity.Order;
 import com.flab.idolu.domain.order.entity.OrderProduct;
 import com.flab.idolu.domain.order.entity.OrderStatus;
+import com.flab.idolu.domain.payment.entity.Payment;
+import com.flab.idolu.domain.payment.entity.PaymentStatus;
+import com.flab.idolu.domain.payment.entity.PaymentType;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -20,6 +23,7 @@ public class OrderRequest {
 	private String address1;
 	private String address2;
 	private List<OrderLineItemDto> orderLineItems;
+	private String paymentType;
 
 	public Order toEntity(Long memberId) {
 		return Order.builder()
@@ -47,5 +51,13 @@ public class OrderRequest {
 				.price(orderLineItemDto.getPrice())
 				.build())
 			.toList();
+	}
+
+	public Payment toPaymentEntity(Long orderId) {
+		return Payment.builder()
+			.orderId(orderId)
+			.paymentType(PaymentType.valueOf(paymentType))
+			.paymentStatus(PaymentStatus.COMPLETE)
+			.build();
 	}
 }
