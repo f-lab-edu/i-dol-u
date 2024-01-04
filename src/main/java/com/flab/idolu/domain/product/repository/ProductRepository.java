@@ -25,5 +25,7 @@ public interface ProductRepository {
 
 	Optional<Product> findByIdForUpdate(Long id);
 
-	void updateProductStock(Product product);
+	Optional<Product> findById(Long id);
+
+	void updateProductStocks(List<Product> product);
 }

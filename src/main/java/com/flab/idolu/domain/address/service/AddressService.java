@@ -52,11 +52,9 @@ public class AddressService {
 	}
 
 	private void validateRegisterAddressDto(RequestAddressDto requestAddressDto) {
-		Assert.hasText(requestAddressDto.getRecipient(), "수령자를 입력해야 합니다.");
-		Assert.hasText(requestAddressDto.getPhone(), "휴대전화를 입력해야 합니다.");
-		Assert.hasText(requestAddressDto.getZipCode(), "우편번호를 입력해야 합니다.");
-		Assert.hasText(requestAddressDto.getAddress1(), "기본주소를 입력해야 합니다.");
-
+		validateRecipient(requestAddressDto.getRecipient());
+		validateZipCode(requestAddressDto.getZipCode());
+		validateAddress1(requestAddressDto.getAddress1());
 		validatePhone(requestAddressDto.getPhone());
 	}
 }

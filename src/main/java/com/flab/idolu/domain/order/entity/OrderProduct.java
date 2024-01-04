@@ -1,4 +1,4 @@
-package com.flab.idolu.domain.product.entity;
+package com.flab.idolu.domain.order.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -14,22 +14,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Product {
+public class OrderProduct {
 
 	private Long id;
-	private Long categoryId;
-	private Long iDolId;
-	private String name;
+	private Long orderId;
+	private Long productId;
 	private BigDecimal price;
-	private Integer stock;
-	private String imageUrl;
-	private String description;
-	private boolean isDeleted;
+	private Integer quantity;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
-
-	public Product decreaseStock(int purchaseStock) {
-		stock -= purchaseStock;
-		return this;
-	}
 }
