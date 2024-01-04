@@ -47,6 +47,7 @@ class OrderServiceTest extends Specification {
 
     def "주문 성공 테스트"() {
         given:
+        productRepository.findByIdForUpdate(1L) >> of(DEFAULT_PRODUCT_FOR_ORDER)
         productRepository.findById(1L) >> of(DEFAULT_PRODUCT_FOR_ORDER)
 
         when:

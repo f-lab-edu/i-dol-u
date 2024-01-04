@@ -2,7 +2,6 @@ package com.flab.idolu.domain.order.service;
 
 import static com.flab.idolu.global.util.ValidateDtoUtil.*;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,6 +15,7 @@ import com.flab.idolu.domain.order.entity.OrderProduct;
 import com.flab.idolu.domain.order.repository.OrderRepository;
 import com.flab.idolu.domain.payment.entity.PaymentType;
 import com.flab.idolu.domain.payment.service.PaymentService;
+import com.flab.idolu.domain.product.entity.Product;
 import com.flab.idolu.domain.product.service.ProductService;
 
 import lombok.RequiredArgsConstructor;
@@ -37,8 +37,11 @@ public class OrderService {
 		List<OrderProduct> orderProducts = orderRequest.toOrderProductEntity(order.getId());
 		orderRepository.insertOrderProduct(orderProducts);
 
-		orderProducts.forEach(orderProduct ->
-			productService.updateProductStock(orderProduct.getProductId(), orderProduct.getQuantity()));
+		List<Product> products = orderProducts.stream()
+			.map(orderProduct ->
+				productService.decreaseProductStocks(orderProduct.getProductId(), orderProduct.getQuantity()))
+			.toList();
+		productService.updateProductStocks(products);
 
 		paymentService.insertPayment(orderRequest.toPaymentEntity(order.getId()));
 	}

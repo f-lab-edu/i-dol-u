@@ -36,17 +36,25 @@
         </where>
     </select>
 
-    <select id="findById" resultType="Product">
+    <select id="findByIdForUpdate" resultType="Product">
         SELECT *
         FROM product
         WHERE id = #{id}
             FOR UPDATE
     </select>
 
-    <update id="updateProductStock" parameterType="Product">
-        UPDATE product
-        SET stock      = #{stock},
-            updated_at = now()
+    <select id="findById" resultType="Product">
+        SELECT *
+        FROM product
         WHERE id = #{id}
+    </select>
+
+    <update id="updateProductStocks">
+        <foreach collection="list" item="product" separator=";">
+            UPDATE product
+            SET stock      = #{product.stock},
+            updated_at = now()
+            WHERE id = #{product.id}
+        </foreach>
     </update>
 </mapper>

@@ -31,10 +31,10 @@ class ProductServiceTest extends Specification {
 
     def "재고 차감 실패 테스트: 상품 없음"() {
         given:
-        productRepository.findById(1L) >> Optional.empty()
+        productRepository.findByIdForUpdate(1L) >> Optional.empty()
 
         when:
-        productService.updateProductStock(1L, 1)
+        productService.decreaseProductStocks(1L, 1)
 
         then:
         def exception = thrown(ProductNotFoundException)
@@ -43,10 +43,10 @@ class ProductServiceTest extends Specification {
 
     def "재고 차감 실패 테스트: 재고 부족"() {
         given:
-        productRepository.findById(1L) >> Optional.of(DEFAULT_PRODUCT)
+        productRepository.findByIdForUpdate(1L) >> Optional.of(DEFAULT_PRODUCT)
 
         when:
-        productService.updateProductStock(1L, 5)
+        productService.decreaseProductStocks(1L, 5)
 
         then:
         def exception = thrown(InsufficientStockException)
@@ -55,10 +55,12 @@ class ProductServiceTest extends Specification {
 
     def "재고 차감 성공"() {
         given:
+        productRepository.findByIdForUpdate(1L) >> Optional.of(DEFAULT_PRODUCT)
         productRepository.findById(1L) >> Optional.of(DEFAULT_PRODUCT)
 
         when:
-        productService.updateProductStock(1L, 3)
+        productService.decreaseProductStocks(1L, 3)
+
 
         then:
         def product = productRepository.findById(1L)

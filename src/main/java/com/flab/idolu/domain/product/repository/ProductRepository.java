@@ -23,7 +23,9 @@ public interface ProductRepository {
 
 	Long getTotalCountByCategoryIdAndIDolId(@Param("categoryId") Long categoryId, @Param("iDolId") Long iDolId);
 
+	Optional<Product> findByIdForUpdate(Long id);
+
 	Optional<Product> findById(Long id);
 
-	void updateProductStock(Product product);
+	void updateProductStocks(List<Product> product);
 }
