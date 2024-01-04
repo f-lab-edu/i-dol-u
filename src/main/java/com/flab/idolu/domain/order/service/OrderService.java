@@ -2,7 +2,6 @@ package com.flab.idolu.domain.order.service;
 
 import static com.flab.idolu.global.util.ValidateDtoUtil.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -13,6 +12,7 @@ import com.flab.idolu.domain.order.dto.request.OrderRequest;
 import com.flab.idolu.domain.order.entity.Order;
 import com.flab.idolu.domain.order.entity.OrderProduct;
 import com.flab.idolu.domain.order.repository.OrderRepository;
+import com.flab.idolu.domain.product.entity.Product;
 import com.flab.idolu.domain.product.service.ProductService;
 
 import lombok.RequiredArgsConstructor;
@@ -33,8 +33,11 @@ public class OrderService {
 		List<OrderProduct> orderProducts = orderRequest.toOrderProductEntity(order.getId());
 		orderRepository.insertOrderProduct(orderProducts);
 
-		orderProducts.forEach(orderProduct ->
-			productService.updateProductStock(orderProduct.getProductId(), orderProduct.getQuantity()));
+		List<Product> products = orderProducts.stream()
+			.map(orderProduct ->
+				productService.decreaseProductStocks(orderProduct.getProductId(), orderProduct.getQuantity()))
+			.toList();
+		productService.updateProductStocks(products);
 	}
 
 	private void validateOrderRequest(OrderRequest orderRequest) {

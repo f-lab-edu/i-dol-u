@@ -28,7 +28,8 @@ public class Product {
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
 
-	public void decreaseStock(int purchaseStock) {
+	public Product decreaseStock(int purchaseStock) {
 		stock -= purchaseStock;
+		return this;
 	}
 }
