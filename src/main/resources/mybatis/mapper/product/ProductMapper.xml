@@ -36,7 +36,7 @@
         </where>
     </select>
 
-    <select id="findById" resultType="Product">
+    <select id="findByIdForUpdate" resultType="Product">
         SELECT *
         FROM product
         WHERE id = #{id}

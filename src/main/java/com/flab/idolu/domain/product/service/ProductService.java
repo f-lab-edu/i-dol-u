@@ -37,7 +37,7 @@ public class ProductService {
 
 	@Transactional
 	public void updateProductStock(Long id, int purchaseStock) {
-		Product product = productRepository.findById(id)
+		Product product = productRepository.findByIdForUpdate(id)
 			.orElseThrow(() -> new ProductNotFoundException("상품이 없습니다."));
 
 		if (product.getStock() < purchaseStock) {
