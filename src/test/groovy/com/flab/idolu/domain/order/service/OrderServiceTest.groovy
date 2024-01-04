@@ -44,7 +44,7 @@ class OrderServiceTest extends Specification {
 
     def "주문 실패 테스트: 재고 없음"() {
         given:
-        productRepository.findById(1L) >> Optional.empty()
+        productRepository.findByIdForUpdate(1L) >> Optional.empty()
 
         when:
         orderService.placeOrder(DEFAULT_ORDER_REQUEST, 1L)
@@ -56,7 +56,7 @@ class OrderServiceTest extends Specification {
 
     def "주문 실패 테스트: 재고 부족"() {
         given:
-        productRepository.findById(1L) >> of(DEFAULT_PRODUCT_FOR_ORDER)
+        productRepository.findByIdForUpdate(1L) >> of(DEFAULT_PRODUCT_FOR_ORDER)
 
         when:
         orderService.placeOrder(INSUFFICIENT_ORDER_REQUEST, 1L)
@@ -68,13 +68,13 @@ class OrderServiceTest extends Specification {
 
     def "주문 성공 테스트"() {
         given:
-        productRepository.findById(1L) >> of(DEFAULT_PRODUCT_FOR_ORDER)
+        productRepository.findByIdForUpdate(1L) >> of(DEFAULT_PRODUCT_FOR_ORDER)
 
         when:
         orderService.placeOrder(DEFAULT_ORDER_REQUEST, 1L)
 
         then:
-        def product = productRepository.findById(1L)
+        def product = productRepository.findByIdForUpdate(1L)
         product.get().stock == 2
     }
 }
