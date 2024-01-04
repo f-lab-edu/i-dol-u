@@ -69,12 +69,13 @@ class OrderServiceTest extends Specification {
     def "주문 성공 테스트"() {
         given:
         productRepository.findByIdForUpdate(1L) >> of(DEFAULT_PRODUCT_FOR_ORDER)
+        productRepository.findById(1L) >> of(DEFAULT_PRODUCT_FOR_ORDER)
 
         when:
         orderService.placeOrder(DEFAULT_ORDER_REQUEST, 1L)
 
         then:
-        def product = productRepository.findByIdForUpdate(1L)
+        def product = productRepository.findById(1L)
         product.get().stock == 2
     }
 }

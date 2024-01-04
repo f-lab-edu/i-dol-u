@@ -56,13 +56,14 @@ class ProductServiceTest extends Specification {
     def "재고 차감 성공"() {
         given:
         productRepository.findByIdForUpdate(1L) >> Optional.of(DEFAULT_PRODUCT)
+        productRepository.findById(1L) >> Optional.of(DEFAULT_PRODUCT)
 
         when:
         productService.decreaseProductStocks(1L, 3)
 
 
         then:
-        def product = productRepository.findByIdForUpdate(1L)
+        def product = productRepository.findById(1L)
         product.get().stock == 0
     }
 }
