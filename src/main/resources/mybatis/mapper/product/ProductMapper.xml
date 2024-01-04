@@ -43,6 +43,12 @@
             FOR UPDATE
     </select>
 
+    <select id="findById" resultType="Product">
+        SELECT *
+        FROM product
+        WHERE id = #{id}
+    </select>
+
     <update id="updateProductStocks">
         <foreach collection="list" item="product" separator=";">
             UPDATE product
