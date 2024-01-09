@@ -27,4 +27,8 @@ public class Product {
 	private boolean isDeleted;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
+
+	public void decreaseStock(int purchaseStock) {
+		stock -= purchaseStock;
+	}
 }

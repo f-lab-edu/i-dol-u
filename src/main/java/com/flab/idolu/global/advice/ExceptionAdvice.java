@@ -12,6 +12,8 @@ import com.flab.idolu.domain.member.exception.EmailDuplicateException;
 import com.flab.idolu.domain.member.exception.MemberNotFoundException;
 import com.flab.idolu.domain.member.exception.PasswordNotMatchException;
 import com.flab.idolu.domain.member.exception.UnauthorizedMemberException;
+import com.flab.idolu.domain.product.exception.InsufficientStockException;
+import com.flab.idolu.domain.product.exception.ProductNotFoundException;
 import com.flab.idolu.global.common.ResponseMessage;
 
 import lombok.extern.slf4j.Slf4j;
@@ -72,6 +74,26 @@ public class ExceptionAdvice {
 
 	@ExceptionHandler(AddressNotFoundException.class)
 	protected ResponseEntity<ResponseMessage> addressNotFoundException(AddressNotFoundException exception) {
+		log.info("AddressNotFoundException: {}", exception.getMessage());
+		return ResponseEntity.status(BAD_REQUEST)
+			.body(ResponseMessage.builder()
+				.status(FAIL)
+				.message(exception.getMessage())
+				.build());
+	}
+
+	@ExceptionHandler(ProductNotFoundException.class)
+	protected ResponseEntity<ResponseMessage> productNotFoundException(ProductNotFoundException exception) {
+		log.info("AddressNotFoundException: {}", exception.getMessage());
+		return ResponseEntity.status(BAD_REQUEST)
+			.body(ResponseMessage.builder()
+				.status(FAIL)
+				.message(exception.getMessage())
+				.build());
+	}
+
+	@ExceptionHandler(InsufficientStockException.class)
+	protected ResponseEntity<ResponseMessage> insufficientStockException(InsufficientStockException exception) {
 		log.info("AddressNotFoundException: {}", exception.getMessage());
 		return ResponseEntity.status(BAD_REQUEST)
 			.body(ResponseMessage.builder()
