@@ -8,7 +8,7 @@ spring:
     redis:
       host: ENC(ItcOHb8ScqGMgddHtdmOvWENNiyPIm+U)
       port: ENC(wGSwwvSRNC7IppcI+oLeKA==)
-      password:
+      password: ENC(CfXONUwAUri6U2vKhaaFE5Hvcqm/ArWF)
 mybatis:
   type-aliases-package: com.flab.idolu.domain.*.entity, com.flab.idolu.domain.*.dto.response
   configuration:
