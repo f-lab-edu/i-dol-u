@@ -49,7 +49,7 @@
     <select id="findById" resultType="Product">
         SELECT *
         FROM product
-        WHERE id =z #{id}
+        WHERE id = #{id}
     </select>
 
     <update id="updateProductStocks">
