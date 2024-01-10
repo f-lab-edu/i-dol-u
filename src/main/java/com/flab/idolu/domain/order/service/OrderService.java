@@ -33,11 +33,7 @@ public class OrderService {
 		List<OrderProduct> orderProducts = orderRequest.toOrderProductEntity(order.getId());
 		orderRepository.insertOrderProduct(orderProducts);
 
-		List<Product> products = orderProducts.stream()
-			.map(orderProduct ->
-				productService.decreaseProductStocks(orderProduct.getProductId(), orderProduct.getQuantity()))
-			.toList();
-		productService.updateProductStocks(products);
+		productService.decreaseProductStocks(orderRequest.toProductEntity());
 	}
 
 	private void validateOrderRequest(OrderRequest orderRequest) {
