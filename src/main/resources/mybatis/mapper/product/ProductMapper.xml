@@ -36,11 +36,14 @@
         </where>
     </select>
 
-    <select id="findByIdForUpdate" resultType="Product">
+    <select id="findProductsByIdForUpdate" resultType="Product">
         SELECT *
         FROM product
-        WHERE id = #{id}
-            FOR UPDATE
+        WHERE id IN (
+            <foreach collection="list" item="product" separator=",">
+                #{product.id}
+            </foreach>
+        ) FOR UPDATE
     </select>
 
     <select id="findById" resultType="Product">

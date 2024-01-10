@@ -9,7 +9,6 @@ import spock.lang.Specification
 
 import static com.flab.idolu.domain.fixture.OrderFixture.*
 import static com.flab.idolu.domain.fixture.ProductFixture.DEFAULT_PRODUCT_FOR_ORDER
-import static java.util.Optional.of
 
 class OrderServiceTest extends Specification {
 
@@ -47,8 +46,8 @@ class OrderServiceTest extends Specification {
 
     def "주문 성공 테스트"() {
         given:
-        productRepository.findByIdForUpdate(1L) >> of(DEFAULT_PRODUCT_FOR_ORDER)
-        productRepository.findById(1L) >> of(DEFAULT_PRODUCT_FOR_ORDER)
+        productRepository.findProductsByIdForUpdate(List.of(DEFAULT_PRODUCT_FOR_ORDER)) >> List.of(DEFAULT_PRODUCT_FOR_ORDER)
+        productRepository.findById(1L) >> Optional.of(DEFAULT_PRODUCT_FOR_ORDER)
 
         when:
         orderService.placeOrder(DEFAULT_ORDER_REQUEST, 1L)

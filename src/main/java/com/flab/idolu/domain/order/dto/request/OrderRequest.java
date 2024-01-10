@@ -9,6 +9,7 @@ import com.flab.idolu.domain.order.entity.OrderStatus;
 import com.flab.idolu.domain.payment.entity.Payment;
 import com.flab.idolu.domain.payment.entity.PaymentStatus;
 import com.flab.idolu.domain.payment.entity.PaymentType;
+import com.flab.idolu.domain.product.entity.Product;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -40,6 +41,15 @@ public class OrderRequest {
 				.reduce(BigDecimal.ZERO, BigDecimal::add))
 			.totalQuantity(orderLineItems.stream().map(OrderLineItemDto::getQuantity).reduce(0, Integer::sum))
 			.build();
+	}
+
+	public List<Product> toProductEntity() {
+		return orderLineItems.stream()
+			.map(orderLineItemDto -> Product.builder()
+				.id(orderLineItemDto.getProductId())
+				.stock(orderLineItemDto.getQuantity())
+				.build())
+			.toList();
 	}
 
 	public List<OrderProduct> toOrderProductEntity(Long orderId) {

@@ -12,6 +12,14 @@ public class ProductFixture {
 		.stock(3)
 		.build();
 
+	public static Product INSUFFICIENT_PRODUCT = Product.builder()
+		.id(1L)
+		.categoryId(1L)
+		.iDolId(1L)
+		.name("productA")
+		.stock(5)
+		.build();
+
 	public static Product DEFAULT_PRODUCT_FOR_ORDER = Product.builder()
 		.id(1L)
 		.categoryId(1L)

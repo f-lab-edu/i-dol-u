@@ -35,19 +35,28 @@ public class ProductService {
 	}
 
 	@Transactional
-	public Product decreaseProductStocks(Long id, int purchaseStock) {
-		Product product = productRepository.findByIdForUpdate(id)
-			.orElseThrow(() -> new ProductNotFoundException("상품이 없습니다."));
+	public void decreaseProductStocks(List<Product> requestProducts) {
+		List<Product> findProducts = productRepository.findProductsByIdForUpdate(requestProducts);
 
-		if (product.getStock() < purchaseStock) {
-			throw new InsufficientStockException("재고는 0개 미만이 될 수 없습니다.");
-		}
-
-		return product.decreaseStock(purchaseStock);
+		decreaseProductsStock(requestProducts, findProducts);
+		productRepository.updateProductStocks(findProducts);
 	}
 
-	@Transactional
-	public void updateProductStocks(List<Product> products) {
-		productRepository.updateProductStocks(products);
+	private void decreaseProductsStock(List<Product> requestProducts, List<Product> findProducts) {
+		requestProducts.forEach(requestProduct -> {
+			Product matchedProduct = findMatchedProduct(requestProduct, findProducts);
+
+			if (matchedProduct.getStock() < requestProduct.getStock()) {
+				throw new InsufficientStockException("재고는 0개 미만이 될 수 없습니다.");
+			}
+			matchedProduct.decreaseStock(requestProduct.getStock());
+		});
+	}
+
+	private Product findMatchedProduct(Product product, List<Product> findProducts) {
+		return findProducts.stream()
+			.filter(findProduct -> findProduct.equals(product))
+			.findAny()
+			.orElseThrow(() -> new ProductNotFoundException("상품이 없습니다."));
 	}
 }
