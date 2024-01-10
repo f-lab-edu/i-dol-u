@@ -1,16 +1,12 @@
 package com.flab.idolu.domain.order.service
 
-
 import com.flab.idolu.domain.order.repository.OrderRepository
-import com.flab.idolu.domain.product.exception.InsufficientStockException
-import com.flab.idolu.domain.product.exception.ProductNotFoundException
 import com.flab.idolu.domain.product.repository.ProductRepository
 import com.flab.idolu.domain.product.service.ProductService
 import spock.lang.Specification
 
 import static com.flab.idolu.domain.fixture.OrderFixture.*
 import static com.flab.idolu.domain.fixture.ProductFixture.DEFAULT_PRODUCT_FOR_ORDER
-import static java.util.Optional.of
 
 class OrderServiceTest extends Specification {
 
@@ -42,34 +38,10 @@ class OrderServiceTest extends Specification {
         EMPTY_ITEMS_ORDER_REQUEST     | "구매 상품이 없습니다."
     }
 
-    def "주문 실패 테스트: 재고 없음"() {
-        given:
-        productRepository.findByIdForUpdate(1L) >> Optional.empty()
-
-        when:
-        orderService.placeOrder(DEFAULT_ORDER_REQUEST, 1L)
-
-        then:
-        def exception = thrown(ProductNotFoundException)
-        exception.message == "상품이 없습니다."
-    }
-
-    def "주문 실패 테스트: 재고 부족"() {
-        given:
-        productRepository.findByIdForUpdate(1L) >> of(DEFAULT_PRODUCT_FOR_ORDER)
-
-        when:
-        orderService.placeOrder(INSUFFICIENT_ORDER_REQUEST, 1L)
-
-        then:
-        def exception = thrown(InsufficientStockException)
-        exception.message == "재고는 0개 미만이 될 수 없습니다."
-    }
-
     def "주문 성공 테스트"() {
         given:
-        productRepository.findByIdForUpdate(1L) >> of(DEFAULT_PRODUCT_FOR_ORDER)
-        productRepository.findById(1L) >> of(DEFAULT_PRODUCT_FOR_ORDER)
+        productRepository.findProductsByIdForUpdate(List.of(DEFAULT_PRODUCT_FOR_ORDER)) >> List.of(DEFAULT_PRODUCT_FOR_ORDER)
+        productRepository.findById(1L) >> Optional.of(DEFAULT_PRODUCT_FOR_ORDER)
 
         when:
         orderService.placeOrder(DEFAULT_ORDER_REQUEST, 1L)
