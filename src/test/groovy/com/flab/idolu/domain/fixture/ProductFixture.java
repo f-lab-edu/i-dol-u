@@ -27,4 +27,20 @@ public class ProductFixture {
 		.name("productA")
 		.stock(3)
 		.build();
+
+	public static Product DEFAULT_PRODUCT_FOR_UPDATE = Product.builder()
+		.id(1L)
+		.categoryId(1L)
+		.iDolId(1L)
+		.name("productA")
+		.stock(3)
+		.build();
+
+	public static Product DEFAULT_PRODUCT_DISTRIBUTED_LOCK = Product.builder()
+		.id(1L)
+		.categoryId(1L)
+		.iDolId(1L)
+		.name("productA")
+		.stock(3)
+		.build();
 }
