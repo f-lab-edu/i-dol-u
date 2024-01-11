@@ -60,4 +60,18 @@
             WHERE id = #{product.id}
         </foreach>
     </update>
+
+    <select id="findByIdForUpdate" resultType="Product">
+        SELECT *
+        FROM product
+        WHERE id = #{id}
+            FOR UPDATE
+    </select>
+
+    <update id="updateProductStock">
+        UPDATE product
+        SET stock      = #{stock},
+            updated_at = now()
+        WHERE id = #{id}
+    </update>
 </mapper>

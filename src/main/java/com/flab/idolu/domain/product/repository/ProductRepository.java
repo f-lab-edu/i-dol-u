@@ -3,6 +3,8 @@ package com.flab.idolu.domain.product.repository;
 import java.util.List;
 import java.util.Optional;
 
+import javax.swing.text.html.Option;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -28,4 +30,8 @@ public interface ProductRepository {
 	Optional<Product> findById(Long id);
 
 	void updateProductStocks(List<Product> product);
+
+	Optional<Product> findByIdForUpdate(Long id);
+
+	void updateProductStock(Product product);
 }
