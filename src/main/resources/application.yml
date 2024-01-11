@@ -6,9 +6,14 @@ spring:
     password: ENC(2VRZJBlof9rNUyol/Olzw9LAaWzcDfRC)
   data:
     redis:
-      host: ENC(ItcOHb8ScqGMgddHtdmOvWENNiyPIm+U)
-      port: ENC(wGSwwvSRNC7IppcI+oLeKA==)
-      password: ENC(CfXONUwAUri6U2vKhaaFE5Hvcqm/ArWF)
+      session:
+        host: ENC(ItcOHb8ScqGMgddHtdmOvWENNiyPIm+U)
+        port: ENC(wGSwwvSRNC7IppcI+oLeKA==)
+        password: ENC(CfXONUwAUri6U2vKhaaFE5Hvcqm/ArWF)
+      redisson:
+        host: ENC(ItcOHb8ScqGMgddHtdmOvWENNiyPIm+U)
+        port: ENC(wGSwwvSRNC7IppcI+oLeKA==)
+        password: ENC(CfXONUwAUri6U2vKhaaFE5Hvcqm/ArWF)
 mybatis:
   type-aliases-package: com.flab.idolu.domain.*.entity, com.flab.idolu.domain.*.dto.response
   configuration:
@@ -36,10 +41,14 @@ spring:
     password: ENC(YEslivkCss7owXDEzcufYjDhOpGmh12f)
   data:
     redis:
-      host: ENC(X5l3B3IOUY0jRMkCuayh2gqCPCD6mIf9)
-      port: ENC(HdD4vqgrg4X5YTE26mKNkw==)
-      password: ENC(1KIy5fYk1jIpW44zkkL8qs7uI5motiCK)
-
+      session:
+        host: ENC(X5l3B3IOUY0jRMkCuayh2gqCPCD6mIf9)
+        port: ENC(HdD4vqgrg4X5YTE26mKNkw==)
+        password: ENC(1KIy5fYk1jIpW44zkkL8qs7uI5motiCK)
+      redisson:
+        host: ENC(TrfcBZ8PP/oISfKbZSWdgYJKdlD9cEGk)
+        port: ENC(c5iRyJ4GwRKRoq+WLflDnw==)
+        password: ENC(Z3IjH25WfR+sU366bFXp9opPir89caX3)
 server:
   port: 8080
 
@@ -55,10 +64,14 @@ spring:
     username: ENC(v1Qf/pZcdMx6bZ2sth8h2A==)
     password: ENC(YEslivkCss7owXDEzcufYjDhOpGmh12f)
   data:
-    redis:
+    session:
       host: ENC(X5l3B3IOUY0jRMkCuayh2gqCPCD6mIf9)
       port: ENC(HdD4vqgrg4X5YTE26mKNkw==)
       password: ENC(1KIy5fYk1jIpW44zkkL8qs7uI5motiCK)
+    redisson:
+      host: ENC(TrfcBZ8PP/oISfKbZSWdgYJKdlD9cEGk)
+      port: ENC(c5iRyJ4GwRKRoq+WLflDnw==)
+      password: ENC(Z3IjH25WfR+sU366bFXp9opPir89caX3)
 
 server:
   port: 8081
