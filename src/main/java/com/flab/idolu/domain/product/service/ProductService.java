@@ -11,6 +11,7 @@ import com.flab.idolu.domain.product.entity.Product;
 import com.flab.idolu.domain.product.exception.InsufficientStockException;
 import com.flab.idolu.domain.product.exception.ProductNotFoundException;
 import com.flab.idolu.domain.product.repository.ProductRepository;
+import com.flab.idolu.global.annotation.DistributedLock;
 
 import lombok.RequiredArgsConstructor;
 
@@ -40,6 +41,32 @@ public class ProductService {
 
 		decreaseProductsStock(requestProducts, findProducts);
 		productRepository.updateProductStocks(findProducts);
+	}
+
+	@Transactional
+	public void decreaseStockWithPessimisticLock(Long id, int purchaseQuantity) {
+		Product product = productRepository.findByIdForUpdate(id)
+			.orElseThrow(() -> new ProductNotFoundException("상품이 없습니다."));
+
+		if (product.getStock() < purchaseQuantity) {
+			throw new InsufficientStockException("재고는 0개 미만이 될 수 없습니다.");
+		}
+
+		product.decreaseStock(purchaseQuantity);
+		productRepository.updateProductStock(product);
+	}
+
+	@DistributedLock(lockName = "stockLock", identifier = "id")
+	public void decreaseStockWithDistributedLock(Long id, int purchaseQuantity) {
+		Product product = productRepository.findById(id)
+			.orElseThrow(() -> new ProductNotFoundException("상품이 없습니다."));
+
+		if (product.getStock() < purchaseQuantity) {
+			throw new InsufficientStockException("재고는 0개 미만이 될 수 없습니다.");
+		}
+
+		product.decreaseStock(purchaseQuantity);
+		productRepository.updateProductStock(product);
 	}
 
 	private void decreaseProductsStock(List<Product> requestProducts, List<Product> findProducts) {
