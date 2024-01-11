@@ -25,11 +25,9 @@ public class RedissonConfig {
 	@Bean
 	public RedissonClient redissonClient() {
 		Config config = new Config();
-		SingleServerConfig singleServerConfig = config.useSingleServer()
-			.setAddress(REDISSON_HOST_PREFIX + redisHost + ":" + redisPort);
-		if (!redisPassword.isEmpty()) {
-			singleServerConfig.setPassword(redisPassword);
-		}
+		config.useSingleServer()
+			.setAddress(REDISSON_HOST_PREFIX + redisHost + ":" + redisPort)
+			.setPassword(redisPassword);
 
 		return Redisson.create(config);
 	}

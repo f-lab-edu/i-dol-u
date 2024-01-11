@@ -48,12 +48,7 @@ public class ProductService {
 		Product product = productRepository.findByIdForUpdate(id)
 			.orElseThrow(() -> new ProductNotFoundException("상품이 없습니다."));
 
-		if (product.getStock() < purchaseQuantity) {
-			throw new InsufficientStockException("재고는 0개 미만이 될 수 없습니다.");
-		}
-
-		product.decreaseStock(purchaseQuantity);
-		productRepository.updateProductStock(product);
+		decreaseStock(product, purchaseQuantity);
 	}
 
 	@DistributedLock(lockName = "stockLock", identifier = "id")
@@ -61,12 +56,7 @@ public class ProductService {
 		Product product = productRepository.findById(id)
 			.orElseThrow(() -> new ProductNotFoundException("상품이 없습니다."));
 
-		if (product.getStock() < purchaseQuantity) {
-			throw new InsufficientStockException("재고는 0개 미만이 될 수 없습니다.");
-		}
-
-		product.decreaseStock(purchaseQuantity);
-		productRepository.updateProductStock(product);
+		decreaseStock(product, purchaseQuantity);
 	}
 
 	private void decreaseProductsStock(List<Product> requestProducts, List<Product> findProducts) {
@@ -85,5 +75,14 @@ public class ProductService {
 			.filter(findProduct -> findProduct.equals(product))
 			.findAny()
 			.orElseThrow(() -> new ProductNotFoundException("상품이 없습니다."));
+	}
+
+	private void decreaseStock(Product product, int purchaseQuantity) {
+		if (product.getStock() < purchaseQuantity) {
+			throw new InsufficientStockException("재고는 0개 미만이 될 수 없습니다.");
+		}
+
+		product.decreaseStock(purchaseQuantity);
+		productRepository.updateProductStock(product);
 	}
 }
