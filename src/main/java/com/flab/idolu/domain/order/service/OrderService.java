@@ -50,9 +50,8 @@ public class OrderService {
 	}
 
 	private void validatePaymentType(String paymentType) {
-		Arrays.stream(PaymentType.values())
-			.filter(type -> type.name().equals(paymentType))
-			.findAny()
-			.orElseThrow(() -> new IllegalArgumentException("%s에 해당하는 결제 타입이 없습니다.".formatted(paymentType)));
+		if (Arrays.stream(PaymentType.values()).noneMatch(type -> type.name().equals(paymentType))) {
+			throw new IllegalArgumentException("%s에 해당하는 결제 타입이 없습니다.".formatted(paymentType));
+		}
 	}
 }
