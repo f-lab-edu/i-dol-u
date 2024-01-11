@@ -4,10 +4,13 @@ import static com.flab.idolu.global.common.ResponseMessage.Status.*;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.flab.idolu.domain.product.dto.request.ProductRequest;
 import com.flab.idolu.domain.product.service.ProductService;
 import com.flab.idolu.global.common.ResponseMessage;
 
@@ -32,6 +35,26 @@ public class ProductController {
 		return ResponseEntity.ok(ResponseMessage.builder()
 			.status(SUCCESS)
 			.result(productService.findByCategoryIdAndIDolId(categoryId, iDolId, offset, size, order))
+			.build());
+	}
+
+	@PostMapping("/pessimisticLock")
+	public ResponseEntity<ResponseMessage> decreaseStockWithPessimisticLock(
+		@RequestBody ProductRequest productRequest) {
+
+		productService.decreaseStockWithPessimisticLock(productRequest.getProductId(), productRequest.getQuantity());
+		return ResponseEntity.ok(ResponseMessage.builder()
+			.status(SUCCESS)
+			.build());
+	}
+
+	@PostMapping("/distributedLock")
+	public ResponseEntity<ResponseMessage> decreaseStockWithDistributedLock(
+		@RequestBody ProductRequest productRequest) {
+
+		productService.decreaseStockWithDistributedLock(productRequest.getProductId(), productRequest.getQuantity());
+		return ResponseEntity.ok(ResponseMessage.builder()
+			.status(SUCCESS)
 			.build());
 	}
 }
