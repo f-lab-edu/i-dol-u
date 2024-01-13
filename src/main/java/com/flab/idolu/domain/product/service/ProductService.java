@@ -1,7 +1,6 @@
 package com.flab.idolu.domain.product.service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,15 +35,28 @@ public class ProductService {
 	}
 
 	@Transactional
-	public void updateProductStock(Long id, int purchaseStock) {
-		Product product = productRepository.findByIdForUpdate(id)
+	public void decreaseProductStocks(List<Product> requestProducts) {
+		List<Product> findProducts = productRepository.findProductsByIdForUpdate(requestProducts);
+
+		decreaseProductsStock(requestProducts, findProducts);
+		productRepository.updateProductStocks(findProducts);
+	}
+
+	private void decreaseProductsStock(List<Product> requestProducts, List<Product> findProducts) {
+		requestProducts.forEach(requestProduct -> {
+			Product matchedProduct = findMatchedProduct(requestProduct, findProducts);
+
+			if (matchedProduct.getStock() < requestProduct.getStock()) {
+				throw new InsufficientStockException("재고는 0개 미만이 될 수 없습니다.");
+			}
+			matchedProduct.decreaseStock(requestProduct.getStock());
+		});
+	}
+
+	private Product findMatchedProduct(Product product, List<Product> findProducts) {
+		return findProducts.stream()
+			.filter(findProduct -> findProduct.equals(product))
+			.findAny()
 			.orElseThrow(() -> new ProductNotFoundException("상품이 없습니다."));
-
-		if (product.getStock() < purchaseStock) {
-			throw new InsufficientStockException("재고는 0개 미만이 될 수 없습니다.");
-		}
-
-		product.decreaseStock(purchaseStock);
-		productRepository.updateProductStock(product);
 	}
 }

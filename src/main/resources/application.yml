@@ -1,14 +1,14 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ENC(rm9ONo55pV9b3a0lwpAbZm3abaYR9+LJPpJ/tx+B//lopeaL/hOp4bZG9f1rHeaE727yKzV62C4xDn1tkE862s59BvKuZWG+LLDnY/TFt8nlmvpsppPVSw==)
+    url: ENC(qWDwD8bHKhIrpQH3bQztE1PKAr4Ci9oAWu42essW/99Sstla3WW0NQ96J1BDyvnk9QWRVVKL8zLmbrDgTNv1a6yEKXvNXfHx)
     username: ENC(R5wYtFLPzE8j1dYaLN8JHw==)
     password: ENC(2VRZJBlof9rNUyol/Olzw9LAaWzcDfRC)
   data:
     redis:
       host: ENC(ItcOHb8ScqGMgddHtdmOvWENNiyPIm+U)
       port: ENC(wGSwwvSRNC7IppcI+oLeKA==)
-      password:
+      password: ENC(CfXONUwAUri6U2vKhaaFE5Hvcqm/ArWF)
 mybatis:
   type-aliases-package: com.flab.idolu.domain.*.entity, com.flab.idolu.domain.*.dto.response
   configuration:
@@ -31,7 +31,7 @@ spring:
       on-profile: prod1
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ENC(moRXEEwcSIVMUd9UmyV67PSsqMz/BybC5aSU5XSTSFBsF9htFycBmoEy0DQg7MtX)
+    url: ENC(bYq1JS4dQAYXjHmn1mDlSPFuiH6jgcX6G7bTFiNTttfKZmfdx+Wz7CtWhZSvkA+7zzN/cWLJxb+VNJLBHYvNLr2Tgc2f5lF5)
     username: ENC(v1Qf/pZcdMx6bZ2sth8h2A==)
     password: ENC(YEslivkCss7owXDEzcufYjDhOpGmh12f)
   data:
@@ -51,7 +51,7 @@ spring:
       on-profile: prod2
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ENC(moRXEEwcSIVMUd9UmyV67PSsqMz/BybC5aSU5XSTSFBsF9htFycBmoEy0DQg7MtX)
+    url: ENC(bYq1JS4dQAYXjHmn1mDlSPFuiH6jgcX6G7bTFiNTttfKZmfdx+Wz7CtWhZSvkA+7zzN/cWLJxb+VNJLBHYvNLr2Tgc2f5lF5)
     username: ENC(v1Qf/pZcdMx6bZ2sth8h2A==)
     password: ENC(YEslivkCss7owXDEzcufYjDhOpGmh12f)
   data:
