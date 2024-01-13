@@ -1,13 +1,13 @@
 package com.flab.idolu.domain.product.service
 
 import com.flab.idolu.domain.fixture.ProductFixture
-import com.flab.idolu.domain.product.entity.Product
 import com.flab.idolu.domain.product.exception.InsufficientStockException
 import com.flab.idolu.domain.product.exception.ProductNotFoundException
 import com.flab.idolu.domain.product.repository.ProductRepository
 import spock.lang.Specification
 
 import static com.flab.idolu.domain.fixture.ProductFixture.DEFAULT_PRODUCT
+import static com.flab.idolu.domain.fixture.ProductFixture.INSUFFICIENT_PRODUCT
 
 class ProductServiceTest extends Specification {
 
@@ -33,10 +33,10 @@ class ProductServiceTest extends Specification {
 
     def "재고 차감 실패 테스트: 상품 없음"() {
         given:
-        productRepository.findById(1L) >> Optional.empty()
+        productRepository.findProductsByIdForUpdate(List.of(DEFAULT_PRODUCT)) >> List.of()
 
         when:
-        productService.updateProductStock(1L, 1)
+        productService.decreaseProductStocks(List.of(DEFAULT_PRODUCT))
 
         then:
         def exception = thrown(ProductNotFoundException)
@@ -45,10 +45,10 @@ class ProductServiceTest extends Specification {
 
     def "재고 차감 실패 테스트: 재고 부족"() {
         given:
-        productRepository.findById(1L) >> Optional.of(DEFAULT_PRODUCT)
+        productRepository.findProductsByIdForUpdate(List.of(INSUFFICIENT_PRODUCT)) >> List.of(DEFAULT_PRODUCT)
 
         when:
-        productService.updateProductStock(1L, 5)
+        productService.decreaseProductStocks(List.of(INSUFFICIENT_PRODUCT))
 
         then:
         def exception = thrown(InsufficientStockException)
@@ -57,10 +57,11 @@ class ProductServiceTest extends Specification {
 
     def "재고 차감 성공"() {
         given:
-        productRepository.findById(1L) >> Optional.of(ProductFixture.DEFAULT_PRODUCT)
+        productRepository.findProductsByIdForUpdate(List.of(DEFAULT_PRODUCT)) >> List.of(DEFAULT_PRODUCT)
+        productRepository.findById(1L) >> Optional.of(DEFAULT_PRODUCT)
 
         when:
-        productService.updateProductStock(1L, 3)
+        productService.decreaseProductStocks(List.of(DEFAULT_PRODUCT))
 
         then:
         def product = productRepository.findById(1L)
