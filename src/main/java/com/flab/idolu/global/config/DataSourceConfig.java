@@ -17,8 +17,8 @@ import org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy;
 @Profile({"prod1", "prod2"})
 public class DataSourceConfig {
 
-	private static final String SOURCE = "SOURCE";
-	private static final String REPLICA = "REPLICA";
+	private static final String SOURCE = "source";
+	private static final String REPLICA = "replica";
 
 	@Bean
 	@Qualifier(SOURCE)
@@ -42,8 +42,8 @@ public class DataSourceConfig {
 		@Qualifier(REPLICA) DataSource replicaDataSource) {
 
 		HashMap<Object, Object> dataSourceMap = new HashMap<>();
-		dataSourceMap.put("source", sourceDataSource);
-		dataSourceMap.put("replica", replicaDataSource);
+		dataSourceMap.put(SOURCE, sourceDataSource);
+		dataSourceMap.put(REPLICA, replicaDataSource);
 
 		RoutingDataSource routingDataSource = new RoutingDataSource();
 		routingDataSource.setTargetDataSources(dataSourceMap);
