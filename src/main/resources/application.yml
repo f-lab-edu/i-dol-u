@@ -30,10 +30,16 @@ spring:
     activate:
       on-profile: prod1
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ENC(bYq1JS4dQAYXjHmn1mDlSPFuiH6jgcX6G7bTFiNTttfKZmfdx+Wz7CtWhZSvkA+7zzN/cWLJxb+VNJLBHYvNLr2Tgc2f5lF5)
-    username: ENC(v1Qf/pZcdMx6bZ2sth8h2A==)
-    password: ENC(YEslivkCss7owXDEzcufYjDhOpGmh12f)
+    source:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: ENC(bYq1JS4dQAYXjHmn1mDlSPFuiH6jgcX6G7bTFiNTttfKZmfdx+Wz7CtWhZSvkA+7zzN/cWLJxb+VNJLBHYvNLr2Tgc2f5lF5)
+      username: ENC(v1Qf/pZcdMx6bZ2sth8h2A==)
+      password: ENC(YEslivkCss7owXDEzcufYjDhOpGmh12f)
+    replica:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: ENC(V/2TFZGXJHrabvQo+mIp9LrP3dGMzdCSuaf9LsJVt0yOzvIyC+ndsMBt2AvvhaCF)
+      username: ENC(nMwtinItmDzyc00a3SmltA==)
+      password: ENC(zo1PkiP39isPi0iRmU5hgkdjpsgmxSYY)
   data:
     redis:
       host: ENC(X5l3B3IOUY0jRMkCuayh2gqCPCD6mIf9)
@@ -50,10 +56,16 @@ spring:
     activate:
       on-profile: prod2
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ENC(bYq1JS4dQAYXjHmn1mDlSPFuiH6jgcX6G7bTFiNTttfKZmfdx+Wz7CtWhZSvkA+7zzN/cWLJxb+VNJLBHYvNLr2Tgc2f5lF5)
-    username: ENC(v1Qf/pZcdMx6bZ2sth8h2A==)
-    password: ENC(YEslivkCss7owXDEzcufYjDhOpGmh12f)
+    source:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: ENC(bYq1JS4dQAYXjHmn1mDlSPFuiH6jgcX6G7bTFiNTttfKZmfdx+Wz7CtWhZSvkA+7zzN/cWLJxb+VNJLBHYvNLr2Tgc2f5lF5)
+      username: ENC(v1Qf/pZcdMx6bZ2sth8h2A==)
+      password: ENC(YEslivkCss7owXDEzcufYjDhOpGmh12f)
+    replica:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: ENC(V/2TFZGXJHrabvQo+mIp9LrP3dGMzdCSuaf9LsJVt0yOzvIyC+ndsMBt2AvvhaCF)
+      username: ENC(nMwtinItmDzyc00a3SmltA==)
+      password: ENC(zo1PkiP39isPi0iRmU5hgkdjpsgmxSYY)
   data:
     redis:
       host: ENC(X5l3B3IOUY0jRMkCuayh2gqCPCD6mIf9)
