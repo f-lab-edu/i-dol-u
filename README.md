@@ -1,12 +1,12 @@
 # I DOL U
 
-## 프로젝트 전체 구성도
-
-<img src="https://github.com/f-lab-edu/i-dol-u/assets/97153666/701ff7fe-2edf-4a44-b300-5b066ba3db6e">
-
 ## 프로젝트 소개
 
 아이돌 굿즈를 판매하는 이커머스 플랫폼입니다.
+
+## 프로젝트 전체 구성도
+
+![image](https://github.com/f-lab-edu/i-dol-u/assets/97153666/52720d68-bd05-4a7f-b635-48bc098d9553)
 
 ## 기술 스택
 
@@ -36,6 +36,7 @@
 - [회원가입 동시성 이슈 테스트 - DB Unique 활용하기](https://oneny.tistory.com/88)
 - [상품 구매 트랜잭션으로 보는 부정합 문제](https://oneny.tistory.com/94)
 - [synchronized vs Pessimistic Lock vs Distributed Lock](https://oneny.tistory.com/109)
+- [nGrinder를 사용한 성능 테스트: 비관적 락 vs 분산 락](https://oneny.tistory.com/116)
 
 ### 기타
 
@@ -43,6 +44,7 @@
 - [Logback 로깅과 MDCFilter로 로깅 식별자 적용하기](https://oneny.tistory.com/97)
 - [Nginx와 WAS의 로깅 식별자(request_id) 공유하기](https://oneny.tistory.com/108)
 - [테스트 커버리지 확인을 위한 jacoco 설정](https://oneny.tistory.com/99)
+- [MySQL Replication 적용하기](https://oneny.tistory.com/115)
 
 ## WIKI
 
