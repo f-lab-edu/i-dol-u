@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import com.flab.idolu.domain.order.dto.request.OrderRequest;
+import com.flab.idolu.domain.order.dto.response.OrderListResponse;
 import com.flab.idolu.domain.order.entity.Order;
 import com.flab.idolu.domain.order.entity.OrderProduct;
 import com.flab.idolu.domain.order.repository.OrderRepository;
@@ -38,6 +39,12 @@ public class OrderService {
 
 		productService.decreaseProductStocks(orderRequest.toProductEntity());
 		paymentService.insertPayment(orderRequest.toPaymentEntity(order.getId()));
+	}
+
+	@Transactional(readOnly = true)
+	public List<OrderListResponse> findByMemberId(Long memberId, int size, int offset) {
+
+		return orderRepository.findByMemberId(memberId, size, size * offset);
 	}
 
 	private void validateOrderRequest(OrderRequest orderRequest) {
