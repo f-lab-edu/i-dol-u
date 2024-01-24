@@ -17,4 +17,23 @@
              #{orderProduct.quantity}, NOW(), NOW())
         </foreach>
     </insert>
+
+    <select id="findByMemberId" resultType="OrderListResponse">
+        SELECT o.id,
+               o.total_price,
+               opt.product_count, -- 상품 구매 개수
+               p.name,            -- 상위 1건 상품명
+               o.order_status
+        FROM orders o
+                 JOIN (SELECT op.order_id,
+                              MAX(op.product_id)   as product_id,
+                              COUNT(op.product_id) as product_count
+                       FROM order_product op
+                       GROUP BY op.order_id) opt ON opt.order_id = o.id
+                 JOIN product p ON p.id = opt.product_id
+        WHERE o.member_id = #{memberId}
+        ORDER BY o.id DESC
+        LIMIT #{size}
+        OFFSET #{offset}
+    </select>
 </mapper>
