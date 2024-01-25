@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.flab.idolu.domain.order.dto.request.OrderLineItemDto;
 import com.flab.idolu.domain.order.dto.request.OrderRequest;
+import com.flab.idolu.domain.order.dto.response.OrderInfoResponse;
 
 public class OrderFixture {
 
@@ -108,5 +109,16 @@ public class OrderFixture {
 		.address2("상세 주소")
 		.orderLineItems(List.of(DEFAULT_ORDER_LINE_ITEM))
 		.paymentType("PAY")
+		.build();
+
+	public static final OrderInfoResponse VALID_ORDER_INFO_RESPONSE = OrderInfoResponse.builder()
+		.id(1L)
+		.memberId(1L)
+		.memberName("oneny")
+		.build();
+
+	public static final OrderInfoResponse INVALID_MEMBER_ID_RESPONSE = OrderInfoResponse.builder()
+		.id(1L)
+		.memberId(2L)
 		.build();
 }
