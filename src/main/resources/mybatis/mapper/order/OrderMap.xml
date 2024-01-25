@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flab.idolu.domain.order.repository.OrderRepository">
+    <resultMap id="orderAndPaymentAndOrderProducts" type="OrderInfoResponse">
+        <id column="id" property="id" />
+        <result column="member_id" property="memberId" />
+        <result column="member_name" property="memberName" />
+        <result column="recipient" property="recipient" />
+        <result column="zip_code" property="zipCode" />
+        <result column="address1" property="address1" />
+        <result column="address2" property="address2" />
+        <result column="phone" property="phone" />
+        <result column="order_status" property="orderStatus" />
+        <result column="total_price" property="totalPrice" />
+        <result column="total_quantity" property="totalQuantity" />
+        <result column="created_at" property="createdAt" />
+        <result column="payment_type" property="paymentType" />
+        <result column="payment_status" property="paymentStatus" />
+        <collection property="orderProductList" ofType="OrderProductDto">
+            <id column="product_id" property="productId" />
+            <result column="price" property="price" />
+            <result column="quantity" property="quantity" />
+            <result column="product_name" property="name" />
+            <result column="image_url" property="imageUrl" />
+        </collection>
+    </resultMap>
+</mapper>

@@ -26,8 +26,8 @@
                o.order_status
         FROM orders o
                  JOIN (SELECT op.order_id,
-                              MAX(op.product_id)   as product_id,
-                              COUNT(op.product_id) as product_count
+                              MAX(op.product_id)   AS product_id,
+                              COUNT(op.product_id) AS product_count
                        FROM order_product op
                        GROUP BY op.order_id) opt ON opt.order_id = o.id
                  JOIN product p ON p.id = opt.product_id
@@ -35,5 +35,34 @@
         ORDER BY o.id DESC
         LIMIT #{size}
         OFFSET #{offset}
+    </select>
+
+    <select id="findById" resultMap="orderAndPaymentAndOrderProducts">
+        SELECT
+            o.id,
+            o.member_id,
+            m.name AS member_name,
+            o.recipient,
+            o.zip_code,
+            o.address1,
+            o.address2,
+            o.phone,
+            o.order_status,
+            o.total_price,
+            o.total_quantity,
+            o.created_at,
+            p.payment_type,
+            p.payment_status,
+            op.product_id,
+            op.price,
+            op.quantity,
+            pr.name AS product_name,
+            pr.image_url
+        FROM orders o
+                 JOIN payment p ON p.order_id = o.id
+                 JOIN member m ON m.id = o.member_id
+                 JOIN order_product op ON op.order_id = o.id
+                 JOIN product pr ON pr.id = op.product_id
+        WHERE o.id = #{id};
     </select>
 </mapper>
