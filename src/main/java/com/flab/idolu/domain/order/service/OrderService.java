@@ -10,9 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import com.flab.idolu.domain.order.dto.request.OrderRequest;
+import com.flab.idolu.domain.order.dto.response.OrderInfoResponse;
 import com.flab.idolu.domain.order.dto.response.OrderListResponse;
 import com.flab.idolu.domain.order.entity.Order;
 import com.flab.idolu.domain.order.entity.OrderProduct;
+import com.flab.idolu.domain.order.exception.InvalidOrderOwnerException;
 import com.flab.idolu.domain.order.repository.OrderRepository;
 import com.flab.idolu.domain.payment.entity.PaymentType;
 import com.flab.idolu.domain.payment.service.PaymentService;
@@ -45,6 +47,17 @@ public class OrderService {
 	public List<OrderListResponse> findByMemberId(Long memberId, int size, int offset) {
 
 		return orderRepository.findByMemberId(memberId, size, size * offset);
+	}
+
+	@Transactional(readOnly = true)
+	public OrderInfoResponse findById(Long id, Long memberId) {
+		OrderInfoResponse orderInfoResponse = orderRepository.findById(id);
+
+		if (!orderInfoResponse.getMemberId().equals(memberId)) {
+			throw new InvalidOrderOwnerException("본인이 구매하지 않은 상품은 조회할 수 없습니다.");
+		}
+
+		return orderInfoResponse;
 	}
 
 	private void validateOrderRequest(OrderRequest orderRequest) {
