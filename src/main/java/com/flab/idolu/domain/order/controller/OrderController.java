@@ -4,6 +4,7 @@ import static com.flab.idolu.global.common.ResponseMessage.Status.*;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,6 +50,16 @@ public class OrderController {
 		return ResponseEntity.ok(ResponseMessage.builder()
 			.status(SUCCESS)
 			.result(orderService.findByMemberId(memberId, size, offset))
+			.build());
+	}
+
+	@MemberLoginCheck
+	@GetMapping("/{id}")
+	public ResponseEntity<ResponseMessage> selectOrder(@PathVariable Long id, @SessionMemberId Long memberId) {
+
+		return ResponseEntity.ok(ResponseMessage.builder()
+			.status(SUCCESS)
+			.result(orderService.findById(id, memberId))
 			.build());
 	}
 }
