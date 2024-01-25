@@ -56,4 +56,12 @@ class OrderServiceTest extends Specification {
         def product = productRepository.findById(1L)
         product.get().stock == 2
     }
+
+    def "주문 목록 조회 테스트"() {
+        when:
+        orderService.findByMemberId(1L, 1, 1)
+
+        then:
+        1 * orderRepository.findByMemberId(1L, 1, 1)
+    }
 }
