@@ -12,4 +12,11 @@
         FROM cart
         WHERE product_id = #{productId} AND member_id = #{memberId}
     </select>
+
+    <update id="updateCartQuantity">
+        UPDATE cart
+        SET quantity = #{quantity},
+            updated_at = NOW()
+        WHERE id = #{id}
+    </update>
 </mapper>

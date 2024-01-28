@@ -15,4 +15,6 @@ public interface CartRepository {
 	void insertCart(Cart cart);
 
 	Optional<Cart> findByProductIdAndMemberId(@Param("productId") Long productId, @Param("memberId") Long memberId);
+
+	void updateCartQuantity(Cart cart);
 }
