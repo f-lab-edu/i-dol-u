@@ -1,10 +1,13 @@
 package com.flab.idolu.domain.cart.service;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import com.flab.idolu.domain.cart.dto.request.CartProductRequest;
+import com.flab.idolu.domain.cart.entity.Cart;
 import com.flab.idolu.domain.cart.repository.CartRepository;
 import com.flab.idolu.domain.product.exception.ProductNotFoundException;
 import com.flab.idolu.domain.product.repository.ProductRepository;
@@ -25,7 +28,14 @@ public class CartService {
 		productRepository.findById(cartProductRequest.getProductId())
 			.orElseThrow(() -> new ProductNotFoundException("상품이 없습니다."));
 
-		cartRepository.insertCart(cartProductRequest.toEntity(memberId));
+		Cart requestCart = cartProductRequest.toEntity(memberId);
+		Optional<Cart> optionalCart = cartRepository.findByProductIdAndMemberId(requestCart.getProductId(), memberId);
+
+		if (optionalCart.isPresent()) {
+			cartRepository.updateCartQuantity(optionalCart.get().addQuantity(requestCart.getQuantity()));
+		} else {
+			cartRepository.insertCart(cartProductRequest.toEntity(memberId));
+		}
 	}
 
 	private void validateCartProduct(CartProductRequest cartProductRequest) {
