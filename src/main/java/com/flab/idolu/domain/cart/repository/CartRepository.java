@@ -1,6 +1,9 @@
 package com.flab.idolu.domain.cart.repository;
 
+import java.util.Optional;
+
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.flab.idolu.domain.cart.entity.Cart;
@@ -10,4 +13,6 @@ import com.flab.idolu.domain.cart.entity.Cart;
 public interface CartRepository {
 
 	void insertCart(Cart cart);
+
+	Optional<Cart> findByProductIdAndMemberId(@Param("productId") Long productId, @Param("memberId") Long memberId);
 }

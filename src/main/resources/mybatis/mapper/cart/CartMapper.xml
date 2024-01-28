@@ -6,4 +6,10 @@
         INSERT INTO cart (product_id, member_id, quantity, is_deleted, created_at, updated_at)
         VALUES (#{productId}, #{memberId}, #{quantity}, false, NOW(), NOW())
     </insert>
+
+    <select id="findByProductIdAndMemberId" resultType="Cart">
+        SELECT *
+        FROM cart
+        WHERE product_id = #{productId} AND member_id = #{memberId}
+    </select>
 </mapper>
