@@ -22,4 +22,9 @@ public class Cart {
 	private boolean isDeleted;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
+
+	public Cart addQuantity(Integer quantity) {
+		this.quantity += quantity;
+		return this;
+	}
 }
