@@ -1,5 +1,7 @@
 package com.flab.idolu.domain.order.service
 
+import com.flab.idolu.domain.order.dto.response.OrderInfoResponse
+import com.flab.idolu.domain.order.exception.InvalidOrderOwnerException
 import com.flab.idolu.domain.order.repository.OrderRepository
 import com.flab.idolu.domain.payment.repository.PaymentRepository
 import com.flab.idolu.domain.payment.service.PaymentService
@@ -63,5 +65,30 @@ class OrderServiceTest extends Specification {
 
         then:
         1 * orderRepository.findByMemberId(1L, 1, 1)
+    }
+
+    def "주문 상세 조회 실패 테스트"() {
+        given:
+        orderRepository.findById(1L) >> INVALID_MEMBER_ID_RESPONSE
+
+        when:
+        orderService.findById(1L, 1L)
+
+        then:
+        def exception = thrown(InvalidOrderOwnerException)
+        exception.getMessage() == "본인이 구매하지 않은 상품은 조회할 수 없습니다."
+    }
+
+    def "주문 상세 조회 성공 테스트"() {
+        given:
+        orderRepository.findById(1L) >> VALID_ORDER_INFO_RESPONSE
+
+        when:
+        def orderInfoResponse = orderService.findById(1L, 1L)
+
+        then:
+        orderInfoResponse.id == 1L
+        orderInfoResponse.memberId == 1L
+        orderInfoResponse.memberName == "oneny"
     }
 }
