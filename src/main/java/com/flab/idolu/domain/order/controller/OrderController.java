@@ -3,9 +3,12 @@ package com.flab.idolu.domain.order.controller;
 import static com.flab.idolu.global.common.ResponseMessage.Status.*;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.flab.idolu.domain.order.dto.request.OrderRequest;
@@ -33,6 +36,30 @@ public class OrderController {
 
 		return ResponseEntity.ok(ResponseMessage.builder()
 			.status(SUCCESS)
+			.build());
+	}
+
+	@GetMapping
+	@MemberLoginCheck
+	public ResponseEntity<ResponseMessage> selectOrders(
+		@SessionMemberId Long memberId,
+		@RequestParam(defaultValue = "10") int size,
+		@RequestParam(defaultValue = "0") int offset
+	) {
+
+		return ResponseEntity.ok(ResponseMessage.builder()
+			.status(SUCCESS)
+			.result(orderService.findByMemberId(memberId, size, offset))
+			.build());
+	}
+
+	@MemberLoginCheck
+	@GetMapping("/{id}")
+	public ResponseEntity<ResponseMessage> selectOrder(@PathVariable Long id, @SessionMemberId Long memberId) {
+
+		return ResponseEntity.ok(ResponseMessage.builder()
+			.status(SUCCESS)
+			.result(orderService.findById(id, memberId))
 			.build());
 	}
 }

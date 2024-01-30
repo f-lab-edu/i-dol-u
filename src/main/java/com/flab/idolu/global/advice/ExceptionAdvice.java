@@ -12,6 +12,7 @@ import com.flab.idolu.domain.member.exception.EmailDuplicateException;
 import com.flab.idolu.domain.member.exception.MemberNotFoundException;
 import com.flab.idolu.domain.member.exception.PasswordNotMatchException;
 import com.flab.idolu.domain.member.exception.UnauthorizedMemberException;
+import com.flab.idolu.domain.order.exception.InvalidOrderOwnerException;
 import com.flab.idolu.domain.product.exception.InsufficientStockException;
 import com.flab.idolu.domain.product.exception.ProductNotFoundException;
 import com.flab.idolu.global.common.ResponseMessage;
@@ -96,6 +97,16 @@ public class ExceptionAdvice {
 	protected ResponseEntity<ResponseMessage> insufficientStockException(InsufficientStockException exception) {
 		log.info("AddressNotFoundException: {}", exception.getMessage());
 		return ResponseEntity.status(BAD_REQUEST)
+			.body(ResponseMessage.builder()
+				.status(FAIL)
+				.message(exception.getMessage())
+				.build());
+	}
+
+	@ExceptionHandler(InvalidOrderOwnerException.class)
+	protected ResponseEntity<ResponseMessage> invalidOrderOwnerException(InvalidOrderOwnerException exception) {
+		log.info("InvalidOrderOwnerException: {}", exception.getMessage());
+		return ResponseEntity.status(FORBIDDEN)
 			.body(ResponseMessage.builder()
 				.status(FAIL)
 				.message(exception.getMessage())
