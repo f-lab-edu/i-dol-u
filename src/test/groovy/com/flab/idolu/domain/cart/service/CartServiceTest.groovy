@@ -69,4 +69,16 @@ class CartServiceTest extends Specification {
         then:
         1 * cartRepository.insertCart(_)
     }
+
+    def "카트 상품 조회 테스트"() {
+        given:
+        cartRepository.findByMemberId(1L) >> List.of(DEFAULT_CART_PRODUCT_RESPONSE)
+
+        when:
+        def cartProduct = cartService.findByMemberId(1L)
+
+        then:
+        cartProduct.size() == 1
+        cartProduct.get(0).id == 1L
+    }
 }
