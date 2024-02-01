@@ -3,6 +3,7 @@ package com.flab.idolu.domain.cart.controller;
 import static com.flab.idolu.global.common.ResponseMessage.Status.*;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +34,16 @@ public class CartController {
 
 		return ResponseEntity.ok(ResponseMessage.builder()
 			.status(SUCCESS)
+			.build());
+	}
+
+	@GetMapping
+	@MemberLoginCheck
+	public ResponseEntity<ResponseMessage> getMyCartProduct(@SessionMemberId Long memberId) {
+
+		return ResponseEntity.ok(ResponseMessage.builder()
+			.status(SUCCESS)
+			.result(cartService.findByMemberId(memberId))
 			.build());
 	}
 }
