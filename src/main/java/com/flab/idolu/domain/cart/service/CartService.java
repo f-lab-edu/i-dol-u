@@ -1,5 +1,6 @@
 package com.flab.idolu.domain.cart.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -7,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import com.flab.idolu.domain.cart.dto.request.CartProductRequest;
+import com.flab.idolu.domain.cart.dto.response.CartProductResponse;
 import com.flab.idolu.domain.cart.entity.Cart;
 import com.flab.idolu.domain.cart.repository.CartRepository;
 import com.flab.idolu.domain.product.exception.ProductNotFoundException;
@@ -36,6 +38,11 @@ public class CartService {
 		} else {
 			cartRepository.insertCart(cartProductRequest.toEntity(memberId));
 		}
+	}
+
+	@Transactional(readOnly = true)
+	public List<CartProductResponse> findByMemberId(Long memberId) {
+		return cartRepository.findByMemberId(memberId);
 	}
 
 	private void validateCartProduct(CartProductRequest cartProductRequest) {
