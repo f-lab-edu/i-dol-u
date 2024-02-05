@@ -1,6 +1,7 @@
 package com.flab.idolu.domain.fixture;
 
 import com.flab.idolu.domain.cart.dto.request.CartProductRequest;
+import com.flab.idolu.domain.cart.dto.request.ModifyCartQuantityRequest;
 import com.flab.idolu.domain.cart.dto.response.CartProductResponse;
 import com.flab.idolu.domain.cart.entity.Cart;
 
@@ -37,5 +38,16 @@ public class CartFixture {
 		.name("productA")
 		.imageUrl("url")
 		.quantity(1)
+		.build();
+
+	public static final ModifyCartQuantityRequest INSUFFICIENT_QUANTITY_CART_REQUEST = ModifyCartQuantityRequest.builder()
+		.quantity(0)
+		.build();
+
+	public static final ModifyCartQuantityRequest INVALID_QUANTITY_CART_REQUEST = ModifyCartQuantityRequest.builder()
+		.build();
+
+	public static final ModifyCartQuantityRequest DEFAULT_CART_REQUEST = ModifyCartQuantityRequest.builder()
+		.quantity(3)
 		.build();
 }
