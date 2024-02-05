@@ -21,4 +21,6 @@ public interface CartRepository {
 	void updateCartQuantity(Cart cart);
 
 	List<CartProductResponse> findByMemberId(Long memberId);
+
+	Optional<Cart> findById(Long id);
 }

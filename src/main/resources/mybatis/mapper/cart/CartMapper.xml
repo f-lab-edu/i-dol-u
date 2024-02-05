@@ -30,5 +30,12 @@
                p.image_url
         FROM cart c
                  JOIN product p ON p.id = c.product_id
+        WHERE member_id = #{member_id}
+    </select>
+
+    <select id="findById">
+        SELECT *
+        FROM cart
+        WHERE id = #{id}
     </select>
 </mapper>
