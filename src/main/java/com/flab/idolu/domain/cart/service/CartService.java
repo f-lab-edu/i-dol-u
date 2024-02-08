@@ -62,6 +62,17 @@ public class CartService {
 		cartRepository.updateCartQuantity(cart);
 	}
 
+	@Transactional
+	public void updateDeletedById(Long cartId, Long memberId) {
+		Cart cart = cartRepository.findById(cartId)
+			.orElseThrow(() -> new CartNotFoundException("존재하는 카트 상품이 없습니다."));
+		if (!cart.getMemberId().equals(memberId)) {
+			throw new UnauthorizedMemberException("본인의 카트 상품만 수량 수정이 가능합니다.");
+		}
+
+		cartRepository.updateDeletedById(cartId);
+	}
+
 	private void validateCartQuantityRequest(ModifyCartQuantityRequest modifyCartQuantityRequest) {
 		Assert.notNull(modifyCartQuantityRequest.quantity(), "수량을 입력해주세요.");
 		Assert.isTrue(modifyCartQuantityRequest.quantity().compareTo(0) > 0, "수량이 0보다 커야 합니다.");
