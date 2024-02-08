@@ -10,13 +10,25 @@
     <select id="findByProductIdAndMemberId" resultType="Cart">
         SELECT *
         FROM cart
-        WHERE product_id = #{productId} AND member_id = #{memberId}
+        WHERE product_id = #{productId}
+          AND member_id = #{memberId}
     </select>
 
     <update id="updateCartQuantity">
         UPDATE cart
-        SET quantity = #{quantity},
+        SET quantity   = #{quantity},
             updated_at = NOW()
         WHERE id = #{id}
     </update>
+
+    <select id="findByMemberId" resultType="CartProductResponse">
+        SELECT c.id,
+               p.id as product_id,
+               p.name,
+               c.quantity,
+               p.price,
+               p.image_url
+        FROM cart c
+                 JOIN product p ON p.id = c.product_id
+    </select>
 </mapper>

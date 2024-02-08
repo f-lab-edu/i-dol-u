@@ -1,6 +1,7 @@
 package com.flab.idolu.domain.fixture;
 
 import com.flab.idolu.domain.cart.dto.request.CartProductRequest;
+import com.flab.idolu.domain.cart.dto.response.CartProductResponse;
 import com.flab.idolu.domain.cart.entity.Cart;
 
 public class CartFixture {
@@ -27,6 +28,14 @@ public class CartFixture {
 		.id(1L)
 		.productId(1L)
 		.memberId(1L)
+		.quantity(1)
+		.build();
+
+	public static final CartProductResponse DEFAULT_CART_PRODUCT_RESPONSE = CartProductResponse.builder()
+		.id(1L)
+		.productId(1L)
+		.name("productA")
+		.imageUrl("url")
 		.quantity(1)
 		.build();
 }
