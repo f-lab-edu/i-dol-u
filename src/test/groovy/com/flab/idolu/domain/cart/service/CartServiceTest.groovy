@@ -1,6 +1,6 @@
 package com.flab.idolu.domain.cart.service
 
-import com.flab.idolu.domain.cart.entity.Cart
+
 import com.flab.idolu.domain.cart.exception.CartNotFoundException
 import com.flab.idolu.domain.cart.repository.CartRepository
 import com.flab.idolu.domain.member.exception.UnauthorizedMemberException
@@ -132,5 +132,40 @@ class CartServiceTest extends Specification {
         then:
         def findCart = cartRepository.findById(1L).get()
         findCart.quantity == 3
+    }
+
+    def "카트 삭제 실패 테스트: 상품 없음"() {
+        given:
+        cartRepository.findById(1L) >> Optional.empty()
+
+        when:
+        cartService.updateDeletedById(1L, 1L)
+
+        then:
+        def exception = thrown(CartNotFoundException)
+        exception.message == "존재하는 카트 상품이 없습니다."
+    }
+
+    def "카트 삭제 실패 테스트: 본인 상품 아님"() {
+        given:
+        cartRepository.findById(1L) >> Optional.of(DEFAULT_CART)
+
+        when:
+        cartService.updateDeletedById(1L, 2L)
+
+        then:
+        def exception = thrown(UnauthorizedMemberException)
+        exception.message == "본인의 카트 상품만 수량 수정이 가능합니다."
+    }
+
+    def "카트 삭제 성공 테스트"() {
+        given:
+        cartRepository.findById(1L) >> Optional.of(DEFAULT_CART)
+
+        when:
+        cartService.updateDeletedById(1L, 1L)
+
+        then:
+        1 * cartRepository.updateDeletedById(1L)
     }
 }
