@@ -23,4 +23,6 @@ public interface CartRepository {
 	List<CartProductResponse> findByMemberId(Long memberId);
 
 	Optional<Cart> findById(Long id);
+
+	void updateDeletedById(Long id);
 }

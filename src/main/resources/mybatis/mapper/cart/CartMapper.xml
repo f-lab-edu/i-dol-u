@@ -12,6 +12,7 @@
         FROM cart
         WHERE product_id = #{productId}
           AND member_id = #{memberId}
+          AND is_deleted = false
     </select>
 
     <update id="updateCartQuantity">
@@ -30,12 +31,21 @@
                p.image_url
         FROM cart c
                  JOIN product p ON p.id = c.product_id
-        WHERE member_id = #{member_id}
+        WHERE member_id = #{memberId}
+          AND c.is_deleted = false
     </select>
 
     <select id="findById">
         SELECT *
         FROM cart
         WHERE id = #{id}
+          AND is_deleted = false
     </select>
+
+    <update id="updateDeletedById">
+        UPDATE cart
+        SET is_deleted = true,
+            updated_at = NOW()
+        WHERE id = #{id}
+    </update>
 </mapper>
