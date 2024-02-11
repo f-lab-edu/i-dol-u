@@ -6,7 +6,7 @@
 
 ## 프로젝트 전체 구성도
 
-![image](https://github.com/f-lab-edu/i-dol-u/assets/97153666/52720d68-bd05-4a7f-b635-48bc098d9553)
+![image](https://github.com/f-lab-edu/i-dol-u/assets/97153666/1cbc439a-88bc-44a9-9cd8-affe903d71a6)
 
 ## 기술 스택
 
