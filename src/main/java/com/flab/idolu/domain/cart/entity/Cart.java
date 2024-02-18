@@ -27,4 +27,8 @@ public class Cart {
 		this.quantity += quantity;
 		return this;
 	}
+
+	public void changQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
 }

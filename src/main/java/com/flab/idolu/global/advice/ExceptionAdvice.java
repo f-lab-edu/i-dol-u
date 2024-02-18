@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.flab.idolu.domain.address.exception.AddressNotFoundException;
+import com.flab.idolu.domain.cart.exception.CartNotFoundException;
 import com.flab.idolu.domain.member.exception.EmailDuplicateException;
 import com.flab.idolu.domain.member.exception.MemberNotFoundException;
 import com.flab.idolu.domain.member.exception.PasswordNotMatchException;
@@ -106,6 +107,16 @@ public class ExceptionAdvice {
 	@ExceptionHandler(InvalidOrderOwnerException.class)
 	protected ResponseEntity<ResponseMessage> invalidOrderOwnerException(InvalidOrderOwnerException exception) {
 		log.info("InvalidOrderOwnerException: {}", exception.getMessage());
+		return ResponseEntity.status(FORBIDDEN)
+			.body(ResponseMessage.builder()
+				.status(FAIL)
+				.message(exception.getMessage())
+				.build());
+	}
+
+	@ExceptionHandler(CartNotFoundException.class)
+	protected ResponseEntity<ResponseMessage> cartNotFoundException(CartNotFoundException exception) {
+		log.info("CartNotFoundException: {}", exception.getMessage());
 		return ResponseEntity.status(FORBIDDEN)
 			.body(ResponseMessage.builder()
 				.status(FAIL)
